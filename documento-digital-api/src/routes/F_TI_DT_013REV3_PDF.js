@@ -560,7 +560,7 @@ router.get("/", (req, res) => {
 //Get one DOCUMENT by id
 router.get("/:id", (req, res) => {
   const { id } = req.params;
-  console.log(id);
+  console.log("Generando documento:" + id);
   documentF_TI_DT_013REV3Schema
     .findById(id)
     .then((data) => {
@@ -863,7 +863,7 @@ function insertarDatosDocumento(data) {
 
 function revisarSoftwareBase(version) {
   console.log(version);
-  if (version != "" && version != undefined) {
+  if (version != "" && version != undefined && version !== "NO INSTALADO") {
     return "X";
   } else {
     return "";

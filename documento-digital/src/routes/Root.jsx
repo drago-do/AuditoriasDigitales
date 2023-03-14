@@ -13,7 +13,8 @@ export default function Root() {
         <ItemDocumento
           nombre="Auditorias"
           descripcion="Documento para registrar auditorias a equipos de computo"
-          url={"/auditorias-documento"}
+          crearDocumento={"/auditorias-documento"}
+          consultaDocumento={"/auditorias-documento/ver-registros"}
         />
       </div>
     </div>

@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import LoaderEnviando from "../components/loaderEnviando";
 import axios from "axios";
-import { redirect } from "react-router-dom";
 
 import style from "./../css/Auditorias.module.css";
 
-const URLapi = "http://127.0.0.1:3001/document/F_TI_DT_013REV3";
+const URLapi = "http://127.0.0.1:3002/document/F_TI_DT_013REV3";
 
 export default function Auditorias() {
   const [loader, setLoader] = useState(false);
@@ -22,7 +20,6 @@ export default function Auditorias() {
     const softwareAdicional = softwareBaseAdicional(data);
     let dataForm = {
       id: Date.now(),
-      fecha: data.get("fecha"),
       dia: dataDia,
       mes: dataMes,
       anio: dataAnio,
@@ -137,7 +134,6 @@ export default function Auditorias() {
       },
       softwareAdicional: softwareAdicional,
     };
-    console.log(dataForm);
     setLoader(true);
     enviarDatos(dataForm);
   };
@@ -149,13 +145,15 @@ export default function Auditorias() {
       .then((response) => {
         //Si la respuesta es un código 200 entonces redirigir a pagina de DetallesRegistro, enviando parámetros (envió: true, mensaje: "string")
         if (response.status === 200) {
+          console.warn("hey");
+          console.log(response.data._id);
           //Sleep 1 second
           setTimeout(() => {
             //redirigir sin usar router
-            window.location.href = `/detalles-registro?envio=true&mensaje=${JSON.stringify(
-              response.data
-            )}`;
-          }, 1000);
+            window.location.href = `/detalles-registro?envio=true&idDocumento=${JSON.stringify(
+              response.data._id
+            )}&tipoDocumento=/document/F_TI_DT_013REV3_PDF/`;
+          }, 5000);
         }
       })
       .catch(function (error) {
@@ -228,17 +226,6 @@ export default function Auditorias() {
                 className={style.logo}
               />
             </div>
-            <div className="col">
-              <label htmlFor="fecha">Fecha:</label>
-              <input
-                type="date"
-                id="fecha"
-                name="fecha"
-                defaultValue={getDate()}
-                min="2023-01-01"
-                required
-              ></input>
-            </div>
           </div>
           <div className="row text-center">
             <div className="col">
@@ -256,10 +243,10 @@ export default function Auditorias() {
           </div>
 
           <div className="row">
-            <div className="col-2 ">
+            <div className="col-6 col-sm-2">
               <p className={style.datoSolicitado}>Nombre completo:</p>
             </div>
-            <div className="col-10">
+            <div className="col-6 col-sm-10">
               <input
                 type="text"
                 name="nombre"
@@ -271,10 +258,10 @@ export default function Auditorias() {
           </div>
 
           <div className="row">
-            <div className="col-2">
+            <div className="col-6 col-sm-2">
               <p className={style.datoSolicitado}>Puesto:</p>
             </div>
-            <div className="col-4">
+            <div className="col-6 col-sm-4">
               <input
                 type="text"
                 name="puesto"
@@ -283,10 +270,10 @@ export default function Auditorias() {
                 className={style.datoSolicitado}
               ></input>
             </div>
-            <div className="col-2">
+            <div className="col-6 col-sm-2">
               <p className={style.datoSolicitado}>Ubicación:</p>
             </div>
-            <div className="col-4">
+            <div className="col-6 col-sm-4">
               <input
                 type="text"
                 name="ubicacion"
@@ -298,12 +285,12 @@ export default function Auditorias() {
           </div>
 
           <div className="row">
-            <div className="col-2">
+            <div className="col-6 col-sm-2">
               <p className={style.datoSolicitado}>
                 Dirección a la que pertenece:
               </p>
             </div>
-            <div className="col-10">
+            <div className="col-6 col-sm-10">
               <input
                 type="text"
                 name="direccion"
@@ -323,10 +310,10 @@ export default function Auditorias() {
           </div>
 
           <div className="row">
-            <div className="col-2">
+            <div className="col-6 col-sm-2">
               <p className={style.datoSolicitado}>Tipo:</p>
             </div>
-            <div className="col-4">
+            <div className="col-6 col-sm-4">
               <input
                 type="text"
                 name="tipo"
@@ -334,10 +321,10 @@ export default function Auditorias() {
                 className={style.datoSolicitado}
               ></input>
             </div>
-            <div className="col-2">
+            <div className="col-6 col-sm-2">
               <p className={style.datoSolicitado}>Marca:</p>
             </div>
-            <div className="col-4">
+            <div className="col-6 col-sm-4">
               <input
                 type="text"
                 name="marca"
@@ -349,10 +336,10 @@ export default function Auditorias() {
           </div>
 
           <div className="row">
-            <div className="col-2">
+            <div className="col-6 col-sm-2">
               <p className={style.datoSolicitado}>Modelo:</p>
             </div>
-            <div className="col-4">
+            <div className="col-6 col-sm-4">
               <input
                 type="text"
                 name="modelo"
@@ -360,10 +347,10 @@ export default function Auditorias() {
                 className={style.datoSolicitado}
               ></input>
             </div>
-            <div className="col-2">
+            <div className="col-6 col-sm-2">
               <p className={style.datoSolicitado}>ServiceTag o S/N:</p>
             </div>
-            <div className="col-4">
+            <div className="col-6 col-sm-4">
               <input
                 type="text"
                 name="serviceTag"
@@ -374,10 +361,10 @@ export default function Auditorias() {
           </div>
 
           <div className="row">
-            <div className="col-2">
+            <div className="col-6 col-sm-2">
               <p className={style.datoSolicitado}>MAC Address Wi-Fi:</p>
             </div>
-            <div className="col-4">
+            <div className="col-6 col-sm-4">
               <input
                 type="text"
                 name="macWIFI"
@@ -385,10 +372,10 @@ export default function Auditorias() {
                 className={style.datoSolicitado}
               ></input>
             </div>
-            <div className="col-2">
+            <div className="col-6 col-sm-2">
               <p className={style.datoSolicitado}>MAC Address Ethernet:</p>
             </div>
-            <div className="col-4">
+            <div className="col-6 col-sm-4">
               <input
                 type="text"
                 name="macLAN"
@@ -399,12 +386,12 @@ export default function Auditorias() {
           </div>
 
           <div className="row">
-            <div className="col-2">
+            <div className="col-6 col-sm-2">
               <p className={style.datoSolicitado}>
                 Nombre del Equipo (Hostname):
               </p>
             </div>
-            <div className="col-4">
+            <div className="col-6 col-sm-4">
               <input
                 type="text"
                 name="nombreEquipo"
@@ -412,10 +399,10 @@ export default function Auditorias() {
                 className={style.datoSolicitado}
               ></input>
             </div>
-            <div className="col-2">
+            <div className="col-6 col-sm-2">
               <p className={style.datoSolicitado}>Dominio:</p>
             </div>
-            <div className="col-4">
+            <div className="col-6 col-sm-4">
               <input
                 type="text"
                 name="dominio"
@@ -425,13 +412,13 @@ export default function Auditorias() {
           </div>
 
           <div className="row">
-            <div className="col-2">
+            <div className="col-4 col-sm-2">
               <p className={style.datoSolicitado}>
                 <br />
                 Accesorios adicionales:
               </p>
             </div>
-            <div className="col-5">
+            <div className="col-4 col-sm-5">
               <input
                 type="text"
                 name="accesoriosTIC"
@@ -439,7 +426,7 @@ export default function Auditorias() {
                 className={style.datoSolicitado}
               ></input>
             </div>
-            <div className="col-5">
+            <div className="col-4 col-sm-5">
               <input
                 type="text"
                 name="accesoriosPer"
@@ -460,10 +447,10 @@ export default function Auditorias() {
           </div>
 
           <div className="row">
-            <div className="col-2">
+            <div className="col-6 col-sm-2">
               <p className={style.datoSolicitado}>Sistema Operativo:</p>
             </div>
-            <div className="col-4">
+            <div className="col-6 col-sm-4">
               <input
                 type="text"
                 name="SO"
@@ -472,10 +459,10 @@ export default function Auditorias() {
                 className={style.datoSolicitado}
               ></input>
             </div>
-            <div className="col-2">
+            <div className="col-6 col-sm-2">
               <p className={style.datoSolicitado}>Versión S/O:</p>
             </div>
-            <div className="col-4">
+            <div className="col-6 col-sm-4">
               <input
                 type="text"
                 name="versionSO"
@@ -486,10 +473,10 @@ export default function Auditorias() {
           </div>
 
           <div className="row">
-            <div className="col-2">
+            <div className="col-6 col-sm-2">
               <p className={style.datoSolicitado}>Arquitectura:</p>
             </div>
-            <div className="col-4 text-center">
+            <div className="col-6 col-sm-4 text-center">
               <input
                 type="radio"
                 name="arquitectura"
@@ -506,10 +493,10 @@ export default function Auditorias() {
               />
               <label htmlFor="arquitectura2">64 bits</label>
             </div>
-            <div className="col-2">
+            <div className="col-6 col-sm-2">
               <p className={style.datoSolicitado}>Versión de OFFICE:</p>
             </div>
-            <div className="col-4">
+            <div className="col-6 col-sm-4">
               <input
                 type="text"
                 name="officeVersion"
@@ -520,10 +507,10 @@ export default function Auditorias() {
           </div>
 
           <div className="row">
-            <div className="col-2">
+            <div className="col-6 col-sm-2">
               <p className={style.datoSolicitado}>RAM Instalada:</p>
             </div>
-            <div className="col-2">
+            <div className="col-6 col-sm-2">
               <input
                 type="number"
                 name="ram"
@@ -533,10 +520,10 @@ export default function Auditorias() {
                 className={style.datoSolicitado}
               ></input>
             </div>
-            <div className="col-2">
+            <div className="col-6 col-sm-2">
               <p className={style.datoSolicitado}>Agente KACE: </p>
             </div>
-            <div className="col-2 text-center">
+            <div className="col-6 col-sm-2 text-center">
               <div className={style.datoSolicitado}>
                 <input
                   type="radio"
@@ -550,12 +537,12 @@ export default function Auditorias() {
                 <label htmlFor="kase2">No</label>
               </div>
             </div>
-            <div className="col-2">
+            <div className="col-6 col-sm-2">
               <p className={style.datoSolicitado}>
                 Tarjeta Extra (RED, Video, etc.){" "}
               </p>
             </div>
-            <div className="col-2">
+            <div className="col-6 col-sm-2">
               <input
                 type="text"
                 name="tarjetaExtra"
@@ -924,660 +911,749 @@ export default function Auditorias() {
           <br />
           <br />
           <div className="row">
-            <div className="col-1"></div>
-            <div className="col-5 text-center tituloTabla">
+            <div className="col-1 .d-lg-none"></div>
+            <div className="col-12 col-lg-5 text-center tituloTabla">
               <h5>LISTA DE SOFTWARE BASE</h5>
-              <table className="table table-light table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">Software</th>
-                    <th scope="col">Estatus</th>
-                    <th scope="col">Version</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className={style.containerPLogo}>
-                      <img
-                        className={style.pLogo}
-                        src="/programLogo/b.jpg"
-                        alt="bitDefender"
-                      />
-                      <p>Bit defender</p>
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        id="tabla52"
-                        name="bitDefender"
-                        value="Si"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla53"
-                        name="bitDefenderVersion"
-                        defaultValue="6.6.19.274"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className={style.containerPLogo}>
-                      <img
-                        className={style.pLogo}
-                        src="/programLogo/g.jpg"
-                        alt="Gimp"
-                      />
-                      <p>Gimp</p>
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        id="tabla54"
-                        name="gimp"
-                        value="Si"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla55"
-                        name="gimpVersion"
-                        defaultValue="2.10"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className={style.containerPLogo}>
-                      <img
-                        className={style.pLogo}
-                        src="/programLogo/a.jpg"
-                        alt="Adobe"
-                      />
-                      <p>Adobe</p>
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        id="tabla56"
-                        name="adobe"
-                        value="Si"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla57"
-                        name="adobeVersion"
-                        defaultValue="20.009.20067"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className={style.containerPLogo}>
-                      <img
-                        className={style.pLogo}
-                        src="/programLogo/g.1.jpg"
-                        alt="GanttProject"
-                      />
-                      <p>GanttProject</p>
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        id="tabla58"
-                        name="ganttProject"
-                        value="Si"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla59"
-                        name="ganttProjectVersion"
-                        defaultValue="2.8.10"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className={style.containerPLogo}>
-                      <img
-                        className={style.pLogo}
-                        src="/programLogo/lo.jpg"
-                        alt="LibreOffice"
-                      />
-                      <p>LibreOffice</p>
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        id="tabla60"
-                        name="libreOffice"
-                        value="Si"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla61"
-                        name="libreOfficeVersion"
-                        defaultValue="6.4.5"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className={style.containerPLogo}>
-                      <img
-                        className={style.pLogo}
-                        src="/programLogo/rar.jpg"
-                        alt="WinRAR"
-                      />
-                      <p>WinRAR</p>
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        id="tabla62"
-                        name="winRAR"
-                        value="Si"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla63"
-                        name="winRARVersion"
-                        defaultValue="590"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className={style.containerPLogo}>
-                      <img
-                        className={style.pLogo}
-                        src="/programLogo/ch.jpg"
-                        alt="Chrome"
-                      />
-                      <p>Chrome</p>
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        id="tabla64"
-                        name="chrome"
-                        value="Si"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla65"
-                        name="chromeVersion"
-                        defaultValue="Ejecutable Online"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className={style.containerPLogo}>
-                      <img
-                        className={style.pLogo}
-                        src="/programLogo/vlc.jpg"
-                        alt="VLC"
-                      />
-                      <p>VLC</p>
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        id="tabla66"
-                        name="vlc"
-                        value="Si"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla67"
-                        name="vlcVersion"
-                        defaultValue="3.0.11"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className={style.containerPLogo}>
-                      <img
-                        className={style.pLogo}
-                        src="/programLogo/sap.jpg"
-                        alt="SAP"
-                      />
-                      <p>SAP</p>
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        id="tabla68"
-                        name="sap"
-                        value="Si"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla69"
-                        name="sapVersion"
-                        defaultValue="7.50"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className={style.containerPLogo}>
-                      <img
-                        className={style.pLogo}
-                        src="/programLogo/ad.jpg"
-                        alt="AutoDesk"
-                      />
-                      <p>AutoDesk</p>
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        id="tabla70"
-                        name="autoDesk"
-                        value="Si"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla71"
-                        name="autoDeskVersion"
-                        defaultValue="2022"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className={style.containerPLogo}>
-                      <img
-                        className={style.pLogo}
-                        src="/programLogo/tv.jpg"
-                        alt="TeamViewer"
-                      />
-                      <p>TeamViewer</p>
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        id="tabla72"
-                        name="teamViewer"
-                        value="Si"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla73"
-                        name="teamViewerVersion"
-                        defaultValue="13"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className={style.containerPLogo}>
-                      <img
-                        className={style.pLogo}
-                        src="/programLogo/ins.jpg"
-                        alt="Inkscape"
-                      />
-                      <p>Inkscape</p>
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        id="tabla74"
-                        name="inkscape"
-                        value="Si"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla75"
-                        name="inkscapeVersion"
-                        defaultValue="1.0"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className={style.containerPLogo}>
-                      <img
-                        className={style.pLogo}
-                        src="/programLogo/fir.jpg"
-                        alt="Firefox"
-                      />
-                      <p>Firefox</p>
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        id="tabla76"
-                        name="firefox"
-                        value="Si"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla77"
-                        name="firefoxVersion"
-                        defaultValue="Ejecutable Online"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className={style.containerPLogo}>
-                      <img
-                        className={style.pLogo}
-                        src="/programLogo/teams.jpg"
-                        alt="Microsoft Teams"
-                      />
-                      <p>Microsoft Teams</p>
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        id="tabla78"
-                        name="microsoftTeams"
-                        value="Si"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla79"
-                        name="microsoftTeamsVersion"
-                        defaultValue="1.3.00.19173"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className={style.containerPLogo}>
-                      <img
-                        className={style.pLogo}
-                        src="/programLogo/bw.jpg"
-                        alt="BitWarden"
-                      />
-                      <p>BitWarden</p>
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        id="tabla80"
-                        name="bitWarden"
-                        value="Si"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla81"
-                        name="bitWardenVersion"
-                        defaultValue="1.29"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className={style.containerPLogo}>
-                      <img
-                        className={style.pLogo}
-                        src="/programLogo/aimp.jpg"
-                        alt="AIMP"
-                      />
-                      <p>AIMP</p>
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        id="tabla82"
-                        name="aimp"
-                        value="Si"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla83"
-                        name="aimpVersion"
-                        defaultValue="4.60.2180"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className={style.containerPLogo}>
-                      <img
-                        className={style.pLogo}
-                        src="/programLogo/draw.jpg"
-                        alt="Draw.io"
-                      />
-                      <p>Draw.io</p>
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        id="tabla84"
-                        name="drawio"
-                        value="Si"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla85"
-                        name="drawioVersion"
-                        defaultValue="13.3.5"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className={style.containerPLogo}>
-                      <img
-                        className={style.pLogo}
-                        src="/programLogo/any.jpg"
-                        alt="AnyDesk"
-                      />
-                      <p>AnyDesk</p>
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        id="tabla86"
-                        name="anyDesk"
-                        value="Si"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla87"
-                        name="anyDeskVersion"
-                        defaultValue="5.5"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className={style.containerPLogo}>
-                      <img
-                        className={style.pLogo}
-                        src="/programLogo/lig.jpg"
-                        alt="LightShot"
-                      />
-                      <p>LightShot</p>
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        id="tabla88"
-                        name="lightShot"
-                        value="Si"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla89"
-                        name="lightShotVersion"
-                        defaultValue="5.5.0.4"
-                      />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                <table className="table table-sm table-light table-striped tableInput">
+                  <thead>
+                    <tr>
+                      <th scope="col">Software</th>
+                      <th scope="col">Estatus</th>
+                      <th scope="col">Version</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className={style.containerPLogo}>
+                        <img
+                          className={style.pLogo}
+                          src="/programLogo/b.jpg"
+                          alt="bitDefender"
+                        />
+                        <p>Bit defender</p>
+                      </td>
+                      <td>
+                        <input
+                          type="checkbox"
+                          id="tabla52"
+                          name="bitDefender"
+                          value="Si"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          style={{ width: "130px" }}
+                          type="text"
+                          id="tabla53"
+                          name="bitDefenderVersion"
+                          defaultValue="6.6.19.274"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className={style.containerPLogo}>
+                        <img
+                          className={style.pLogo}
+                          src="/programLogo/g.jpg"
+                          alt="Gimp"
+                        />
+                        <p>Gimp</p>
+                      </td>
+                      <td>
+                        <input
+                          type="checkbox"
+                          id="tabla54"
+                          name="gimp"
+                          value="Si"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          style={{ width: "130px" }}
+                          type="text"
+                          id="tabla55"
+                          name="gimpVersion"
+                          defaultValue="2.10"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className={style.containerPLogo}>
+                        <img
+                          className={style.pLogo}
+                          src="/programLogo/a.jpg"
+                          alt="Adobe"
+                        />
+                        <p>Adobe</p>
+                      </td>
+                      <td>
+                        <input
+                          type="checkbox"
+                          id="tabla56"
+                          name="adobe"
+                          value="Si"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          style={{ width: "130px" }}
+                          type="text"
+                          id="tabla57"
+                          name="adobeVersion"
+                          defaultValue="20.009.20067"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className={style.containerPLogo}>
+                        <img
+                          className={style.pLogo}
+                          src="/programLogo/g.1.jpg"
+                          alt="GanttProject"
+                        />
+                        <p>GanttProject</p>
+                      </td>
+                      <td>
+                        <input
+                          type="checkbox"
+                          id="tabla58"
+                          name="ganttProject"
+                          value="Si"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          style={{ width: "130px" }}
+                          type="text"
+                          id="tabla59"
+                          name="ganttProjectVersion"
+                          defaultValue="2.8.10"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className={style.containerPLogo}>
+                        <img
+                          className={style.pLogo}
+                          src="/programLogo/lo.jpg"
+                          alt="LibreOffice"
+                        />
+                        <p>LibreOffice</p>
+                      </td>
+                      <td>
+                        <input
+                          type="checkbox"
+                          id="tabla60"
+                          name="libreOffice"
+                          value="Si"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          style={{ width: "130px" }}
+                          type="text"
+                          id="tabla61"
+                          name="libreOfficeVersion"
+                          defaultValue="6.4.5"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className={style.containerPLogo}>
+                        <img
+                          className={style.pLogo}
+                          src="/programLogo/rar.jpg"
+                          alt="WinRAR"
+                        />
+                        <p>WinRAR</p>
+                      </td>
+                      <td>
+                        <input
+                          type="checkbox"
+                          id="tabla62"
+                          name="winRAR"
+                          value="Si"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          style={{ width: "130px" }}
+                          id="tabla63"
+                          name="winRARVersion"
+                          defaultValue="590"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className={style.containerPLogo}>
+                        <img
+                          className={style.pLogo}
+                          src="/programLogo/ch.jpg"
+                          alt="Chrome"
+                        />
+                        <p>Chrome</p>
+                      </td>
+                      <td>
+                        <input
+                          type="checkbox"
+                          id="tabla64"
+                          name="chrome"
+                          value="Si"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          style={{ width: "130px" }}
+                          id="tabla65"
+                          name="chromeVersion"
+                          defaultValue="Ejecutable Online"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className={style.containerPLogo}>
+                        <img
+                          className={style.pLogo}
+                          src="/programLogo/vlc.jpg"
+                          alt="VLC"
+                        />
+                        <p>VLC</p>
+                      </td>
+                      <td>
+                        <input
+                          type="checkbox"
+                          id="tabla66"
+                          name="vlc"
+                          value="Si"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          style={{ width: "130px" }}
+                          id="tabla67"
+                          name="vlcVersion"
+                          defaultValue="3.0.11"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className={style.containerPLogo}>
+                        <img
+                          className={style.pLogo}
+                          src="/programLogo/sap.jpg"
+                          alt="SAP"
+                        />
+                        <p>SAP</p>
+                      </td>
+                      <td>
+                        <input
+                          type="checkbox"
+                          id="tabla68"
+                          name="sap"
+                          value="Si"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          style={{ width: "130px" }}
+                          id="tabla69"
+                          name="sapVersion"
+                          defaultValue="7.50"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className={style.containerPLogo}>
+                        <img
+                          className={style.pLogo}
+                          src="/programLogo/ad.jpg"
+                          alt="AutoDesk"
+                        />
+                        <p>AutoDesk</p>
+                      </td>
+                      <td>
+                        <input
+                          type="checkbox"
+                          id="tabla70"
+                          name="autoDesk"
+                          value="Si"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          style={{ width: "130px" }}
+                          id="tabla71"
+                          name="autoDeskVersion"
+                          defaultValue="2022"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className={style.containerPLogo}>
+                        <img
+                          className={style.pLogo}
+                          src="/programLogo/tv.jpg"
+                          alt="TeamViewer"
+                        />
+                        <p>TeamViewer</p>
+                      </td>
+                      <td>
+                        <input
+                          type="checkbox"
+                          id="tabla72"
+                          name="teamViewer"
+                          value="Si"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          id="tabla73"
+                          style={{ width: "130px" }}
+                          name="teamViewerVersion"
+                          defaultValue="13"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className={style.containerPLogo}>
+                        <img
+                          className={style.pLogo}
+                          src="/programLogo/ins.jpg"
+                          alt="Inkscape"
+                        />
+                        <p>Inkscape</p>
+                      </td>
+                      <td>
+                        <input
+                          type="checkbox"
+                          id="tabla74"
+                          name="inkscape"
+                          value="Si"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          id="tabla75"
+                          style={{ width: "130px" }}
+                          name="inkscapeVersion"
+                          defaultValue="1.0"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className={style.containerPLogo}>
+                        <img
+                          className={style.pLogo}
+                          src="/programLogo/fir.jpg"
+                          alt="Firefox"
+                        />
+                        <p>Firefox</p>
+                      </td>
+                      <td>
+                        <input
+                          type="checkbox"
+                          id="tabla76"
+                          name="firefox"
+                          value="Si"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          id="tabla77"
+                          style={{ width: "130px" }}
+                          name="firefoxVersion"
+                          defaultValue="Ejecutable Online"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className={style.containerPLogo}>
+                        <img
+                          className={style.pLogo}
+                          src="/programLogo/teams.jpg"
+                          alt="Microsoft Teams"
+                        />
+                        <p>Microsoft Teams</p>
+                      </td>
+                      <td>
+                        <input
+                          type="checkbox"
+                          id="tabla78"
+                          name="microsoftTeams"
+                          value="Si"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          id="tabla79"
+                          style={{ width: "130px" }}
+                          name="microsoftTeamsVersion"
+                          defaultValue="1.3.00.19173"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className={style.containerPLogo}>
+                        <img
+                          className={style.pLogo}
+                          src="/programLogo/bw.jpg"
+                          alt="BitWarden"
+                        />
+                        <p>BitWarden</p>
+                      </td>
+                      <td>
+                        <input
+                          type="checkbox"
+                          id="tabla80"
+                          name="bitWarden"
+                          value="Si"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          id="tabla81"
+                          style={{ width: "130px" }}
+                          name="bitWardenVersion"
+                          defaultValue="1.29"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className={style.containerPLogo}>
+                        <img
+                          className={style.pLogo}
+                          src="/programLogo/aimp.jpg"
+                          alt="AIMP"
+                        />
+                        <p>AIMP</p>
+                      </td>
+                      <td>
+                        <input
+                          type="checkbox"
+                          id="tabla82"
+                          name="aimp"
+                          value="Si"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          id="tabla83"
+                          style={{ width: "130px" }}
+                          name="aimpVersion"
+                          defaultValue="4.60.2180"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className={style.containerPLogo}>
+                        <img
+                          className={style.pLogo}
+                          src="/programLogo/draw.jpg"
+                          alt="Draw.io"
+                        />
+                        <p>Draw.io</p>
+                      </td>
+                      <td>
+                        <input
+                          type="checkbox"
+                          id="tabla84"
+                          name="drawio"
+                          value="Si"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          id="tabla85"
+                          style={{ width: "130px" }}
+                          name="drawioVersion"
+                          defaultValue="13.3.5"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className={style.containerPLogo}>
+                        <img
+                          className={style.pLogo}
+                          src="/programLogo/any.jpg"
+                          alt="AnyDesk"
+                        />
+                        <p>AnyDesk</p>
+                      </td>
+                      <td>
+                        <input
+                          type="checkbox"
+                          id="tabla86"
+                          name="anyDesk"
+                          value="Si"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          id="tabla87"
+                          style={{ width: "130px" }}
+                          name="anyDeskVersion"
+                          defaultValue="5.5"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className={style.containerPLogo}>
+                        <img
+                          className={style.pLogo}
+                          src="/programLogo/lig.jpg"
+                          alt="LightShot"
+                        />
+                        <p>LightShot</p>
+                      </td>
+                      <td>
+                        <input
+                          type="checkbox"
+                          id="tabla88"
+                          name="lightShot"
+                          value="Si"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          id="tabla89"
+                          style={{ width: "130px" }}
+                          name="lightShotVersion"
+                          defaultValue="5.5.0.4"
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <div className="col-1"></div>
-            <div className="col-4 text-center tituloTabla">
+            <div className="col-1 .d-lg-none"></div>
+            <div className="col-12 col-lg-4 text-center tituloTabla">
               <h5>SOFTWARE BASE ADICIONAL</h5>
-              <table className="table table-light table-striped">
-                <thead>
-                  <tr>
-                    <th>Nombre</th>
-                    <th>Version</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <input type="text" id="tabla90" name="softwareBase1" />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla91"
-                        name="softwareBase1Version"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input type="text" id="tabla92" name="softwareBase2" />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla93"
-                        name="softwareBase2Version"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input type="text" id="tabla94" name="softwareBase3" />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla95"
-                        name="softwareBase3Version"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input type="text" id="tabla96" name="softwareBase4" />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla97"
-                        name="softwareBase4Version"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input type="text" id="tabla98" name="softwareBase5" />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla99"
-                        name="softwareBase5Version"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input type="text" id="tabla100" name="softwareBase6" />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla101"
-                        name="softwareBase6Version"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input type="text" id="tabla102" name="softwareBase7" />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla103"
-                        name="softwareBase7Version"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input type="text" id="tabla104" name="softwareBase8" />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla105"
-                        name="softwareBase8Version"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input type="text" id="tabla106" name="softwareBase9" />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla107"
-                        name="softwareBase9Version"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input type="text" id="tabla108" name="softwareBase10" />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla109"
-                        name="softwareBase10Version"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input type="text" id="tabla110" name="softwareBase11" />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        id="tabla111"
-                        name="softwareBase11Version"
-                      />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                <table className="table table-light table-striped">
+                  <thead>
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Version</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <input
+                          type="text"
+                          style={{ width: "130px" }}
+                          id="tabla90"
+                          name="softwareBase1"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          id="tabla91"
+                          style={{ width: "130px" }}
+                          name="softwareBase1Version"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <input
+                          type="text"
+                          style={{ width: "130px" }}
+                          id="tabla92"
+                          name="softwareBase2"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          id="tabla93"
+                          style={{ width: "130px" }}
+                          name="softwareBase2Version"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <input
+                          type="text"
+                          style={{ width: "130px" }}
+                          id="tabla94"
+                          name="softwareBase3"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          id="tabla95"
+                          style={{ width: "130px" }}
+                          name="softwareBase3Version"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <input
+                          type="text"
+                          style={{ width: "130px" }}
+                          id="tabla96"
+                          name="softwareBase4"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          id="tabla97"
+                          style={{ width: "130px" }}
+                          name="softwareBase4Version"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <input
+                          type="text"
+                          style={{ width: "130px" }}
+                          id="tabla98"
+                          name="softwareBase5"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          style={{ width: "130px" }}
+                          id="tabla99"
+                          name="softwareBase5Version"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <input
+                          type="text"
+                          style={{ width: "130px" }}
+                          id="tabla100"
+                          name="softwareBase6"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          id="tabla101"
+                          style={{ width: "130px" }}
+                          name="softwareBase6Version"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <input
+                          type="text"
+                          style={{ width: "130px" }}
+                          id="tabla102"
+                          name="softwareBase7"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          id="tabla103"
+                          style={{ width: "130px" }}
+                          name="softwareBase7Version"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <input
+                          type="text"
+                          style={{ width: "130px" }}
+                          id="tabla104"
+                          name="softwareBase8"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          style={{ width: "130px" }}
+                          id="tabla105"
+                          name="softwareBase8Version"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <input
+                          type="text"
+                          style={{ width: "130px" }}
+                          id="tabla106"
+                          name="softwareBase9"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          style={{ width: "130px" }}
+                          id="tabla107"
+                          name="softwareBase9Version"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <input
+                          type="text"
+                          style={{ width: "130px" }}
+                          id="tabla108"
+                          name="softwareBase10"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          style={{ width: "130px" }}
+                          id="tabla109"
+                          name="softwareBase10Version"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <input
+                          type="text"
+                          style={{ width: "130px" }}
+                          id="tabla110"
+                          name="softwareBase11"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          style={{ width: "130px" }}
+                          id="tabla111"
+                          name="softwareBase11Version"
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
             <div className="col-1"></div>
           </div>

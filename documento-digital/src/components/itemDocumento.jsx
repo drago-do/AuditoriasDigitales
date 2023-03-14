@@ -2,7 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./../css/Root.module.css";
 
-export default function itemDocumento({ nombre, descripcion, url, imagen }) {
+export default function itemDocumento({
+  nombre,
+  descripcion,
+  consultaDocumento,
+  crearDocumento,
+  imagen,
+}) {
   return (
     <div className={styles.containerItem}>
       <img
@@ -13,7 +19,10 @@ export default function itemDocumento({ nombre, descripcion, url, imagen }) {
         <h3>{nombre}</h3>
         <p>{descripcion}</p>
       </div>
-      <Link className={styles.link} to={url}>
+      <Link className={styles.link} to={consultaDocumento}>
+        Ver registros
+      </Link>
+      <Link className={styles.link} to={crearDocumento}>
         Crear nuevo documento
       </Link>
     </div>

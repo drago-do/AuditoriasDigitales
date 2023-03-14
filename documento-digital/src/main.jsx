@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./routes/Root";
 import Auditorias from "./routes/Auditorias";
 import DetallesRegistro from "./routes/DetallesRegistro";
+import ConsultaAuditorias from "./routes/ConsultaAuditorias";
 
 import "./index.css";
 
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: "detalles-registro",
     element: <DetallesRegistro />,
+  },
+  {
+    path: "/auditorias-documento/ver-registros",
+    element: <ConsultaAuditorias />,
   },
 ]);
 

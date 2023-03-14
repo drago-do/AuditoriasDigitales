@@ -5,10 +5,6 @@ const F_TI_DT_013REV3Schema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  fecha: {
-    type: Date,
-    required: true,
-  },
   dia: {
     type: String,
     required: true,
