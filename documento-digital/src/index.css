@@ -1,0 +1,51 @@
+@font-face {
+  font-family: gadugi;
+  src: url("/font/gadugi-normal.ttf"), url("/font/gadugi-bold.ttf"),
+    url("/font/gadugi-gras.ttf");
+}
+:root {
+  font-family: gadugi, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  --background-color-primary: #6e9e3f;
+  --background-color-secondary: #b4d479;
+  --background-color-third: #706f6f;
+
+  --background-color-light: #f2f2f2;
+  --background-color-white: #fff;
+  --text-color-primary: #000;
+  --text-color-secondary: #fff;
+  font-family: gadugi, Arial, Helvetica;
+
+  /* color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424; */
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+}

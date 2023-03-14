@@ -1,0 +1,545 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>PDF Result Template</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    span {
+      font-size: 8px;
+    }
+
+    h1 {
+      font-size: 12px;
+      text-align: center;
+      font-weight: bold;
+      background-color: #b4d479;
+      color: #000;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td {
+      font-size: 8px;
+      border: 2px solid #ddd;
+      padding: 2px;
+      text-align: end;
+      font-weight: bold;
+    }
+
+    td.respuesta {
+      text-align: start;
+      font-weight: 100;
+    }
+
+    .pLogo {
+      width: 10px;
+      height: 10px;
+    }
+
+    .containerPLogo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .inLine {
+      display: inline;
+    }
+  </style>
+</head>
+
+<body>
+  <div style="margin: 40px;">
+    <div id="pageFooter" style="border-top: 1px solid #ddd; padding-top: 5px;">
+      <p
+        style="color: #666; margin: 0; padding-bottom: 5px; text-align: right; font-family: sans-serif; font-size: .65em">
+        Página {{page}} de {{pages}}</p>
+    </div>
+    <div
+      style="border-bottom: 1px solid #ddd; padding-bottom: 5px; display: flex; align-items: end; justify-content: space-between;">
+      <img class="logo" src="http://localhost:3002/grupak_logo.png" alt="imagen logo" style="width: 100px;" />
+      <span>Ref. P-TI-DT-010</span>
+    </div>
+    <p style="text-align: end; font-size: 12px;">Fecha: {{fecha}}</p>
+    <br>
+    <br>
+    <h1>Datos del usuario responsable del equipo</h1>
+    <!-- tabla -->
+    <table>
+      <tbody>
+        <tr>
+          <td width="140">Nombre Completo:</td>
+          <td colspan="3" class="respuesta">{{nombre}}</td>
+        </tr>
+        <tr>
+          <td>Puesto:</td>
+          <td class="respuesta">{{puesto}}</td>
+          <td width="140">Ubicación</td>
+          <td class="respuesta">{{ubicacion}}</td>
+        </tr>
+        <tr>
+          <td>
+            Dirección a la que pertenece:
+          </td>
+          <td colspan="3" class="respuesta">{{direccion}}</td>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+
+
+    <h1>Datos del equipo</h1>
+    <!-- tabla -->
+    <table>
+      <tbody>
+        <tr>
+          <td width="140">Tipo de equipo:</td>
+          <td class="respuesta">{{tipo}}</td>
+          <td width="140">Marca de equipo:</td>
+          <td class="respuesta">{{marca}}</td>
+        </tr>
+        <tr>
+          <td>Modelo de equipo:</td>
+          <td class="respuesta">{{modelo}}</td>
+          <td>Service TAG o N/S:</td>
+          <td class="respuesta">{{serie}}</td>
+        </tr>
+        <tr>
+          <td>MAC Address Wi-Fi</td>
+          <td class="respuesta">{{mac}}</td>
+          <td>MAC Address Ethernet</td>
+          <td class="respuesta">{{mac_ethernet}}</td>
+        </tr>
+        <tr>
+          <td>Nombre del Equipo (Hostname):</td>
+          <td class="respuesta">{{hostname}}</td>
+          <td>Dominio:</td>
+          <td class="respuesta">{{dominio}}</td>
+        </tr>
+        <tr>
+          <td>
+            Accesorios Adicionales
+          </td>
+          <td colspan="2" class="respuesta">
+            <p>TIC:</p>{{accesorios_tic}}
+          </td>
+          <td class="respuesta">
+            <p>Personales:</p>{{accesorios_per}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <h1>Revisión de la arquitectura del equipo de cómputo</h1>
+    <!-- tabla -->
+    <table>
+      <tbody>
+        <tr>
+          <td width="140">Sistema operativo:</td>
+          <td colspan="2" class="respuesta">{{SO}}</td>
+          <td width="140">Versión SO:</td>
+          <td colspan="2" class="respuesta">{{ram}}</td>
+        </tr>
+        <tr>
+          <td>Arquitectura:</td>
+          <td colspan="2" class="respuesta">{{arquitectura}}</td>
+          <td>Versión Office:</td>
+          <td colspan="2" class="respuesta">{{officeV}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <tbody style="border-top: none;">
+        <tr>
+          <td width="100">RAM instalada:</td>
+          <td class="respuesta">{{ram}}</td>
+          <td width="100">Agente KASE:</td>
+          <td width="40" class="respuesta">{{kase}}</td>
+          <td width="100">Tarjeta Extra (Red, Video, etc.)</td>
+          <td colspan="3" class="respuesta">{{tarjetaExtra}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <br><br>
+    <h1>Revisión del equipo de cómputo</h1>
+    <!-- tabla -->
+    <table>
+      <tbody>
+        <tr>
+          <td style="text-align: start;">Configuración básica:</td>
+          <td style="text-align: start;" width="140">Respuesta</td>
+        </tr>
+        <tr>
+          <td class="respuesta">Usuario administrador "tic"</td>
+          <td class="respuesta">{{usuarioAdminTic}}</td>
+        </tr>
+        <tr>
+          <td class="respuesta">Contraseña de administrador homologada</td>
+          <td class="respuesta">{{adminHomologada}}</td>
+        </tr>
+        <tr>
+          <td class="respuesta">Permisos estándar en cuenta de usuario</td>
+          <td class="respuesta">{{permisosEsta}}</td>
+        </tr>
+        <tr>
+          <td class="respuesta">Carpeta de imágenes Grupak en Documentos</td>
+          <td class="respuesta">{{carpetaImg}}</td>
+        </tr>
+        <tr>
+          <td class="respuesta">Identidad Grupak (Fondo y protector de pantalla oficiales)</td>
+          <td class="respuesta">{{fondoPantalla}}</td>
+        </tr>
+        <tr>
+          <td class="respuesta">Menú Grupak en navegadores (Chrome, Firefox y Edge)</td>
+          <td class="respuesta">{{menu}}</td>
+        </tr>
+        <tr>
+          <td class="respuesta">VPN configurado</td>
+          <td class="respuesta">{{vpn}}</td>
+        </tr>
+        <tr>
+          <td class="respuesta">Firma de correo actualizada</td>
+          <td class="respuesta">{{firmaCorreo}}</td>
+        </tr>
+        <tr>
+          <td class="respuesta">Instancia SAP (Calidad y Productivo)</td>
+          <td class="respuesta">{{sap}}</td>
+        </tr>
+        <tr>
+          <td class="respuesta">One Drive sincronizado</td>
+          <td class="respuesta">{{oneDrive}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <img src="http://localhost:3002/footer.png" alt="Pie de pagina" style="max-width: 612px;">
+  <br><br>
+  <div
+    style="border-bottom: 1px solid #ddd; padding-bottom: 5px; display: flex; align-items: end; justify-content: space-between;">
+    <img class="logo" src="http://localhost:3002/grupak_logo.png" alt="imagen logo" style="width: 100px;" />
+    <span>Ref. P-TI-DT-010</span>
+  </div>
+  <div style="margin: 40px;">
+    <h1>Revisión de seguridad en los equipos de cómputo</h1>
+    <!-- tabla -->
+    <table>
+      <tbody>
+        <tr>
+          <td style="text-align: start;">Configuraciones de seguridad</td>
+          <td style="text-align: start;" width="140">Respuesta</td>
+        </tr>
+        <tr>
+          <td class="respuesta">"Acceso no vigilado" deshabilitado en Anydesk y Teamviewer</td>
+          <td class="respuesta">{{accesoNoVigilado}}</td>
+        </tr>
+        <tr>
+          <td class="respuesta">"Zona de cobertura inalámbrica" deshabilitada</td>
+          <td class="respuesta">{{coberturaInalambrica}}</td>
+        </tr>
+        <tr>
+          <td class="respuesta">Deshabilitar Internet Explorer (Bajo demanda de DO)</td>
+          <td class="respuesta">{{ie}}</td>
+        </tr>
+        <tr>
+          <td class="respuesta">Acceso a internet restringido</td>
+          <td class="respuesta">{{internetRestringido}}</td>
+        </tr>
+        <tr>
+          <td class="respuesta">"Recordar contraseña" desactivado en navegadores</td>
+          <td class="respuesta">{{recordarContra}}</td>
+        </tr>
+        <tr>
+          <td class="respuesta">Doble autenticación de Correo electrónico</td>
+          <td class="respuesta">{{dobleAuth}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <div>
+      <div>
+        <h1>LISTA DE SOFTWARE BASE</h1>
+        <!-- tabla -->
+        <table>
+          <tbody>
+            <tr>
+              <td class="containerPLogo">
+                <p class="inLine">Bit defender</p>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/b.jpg" alt="bitDefender" />
+              </td>
+              <td>
+                {{bitDefenderCheck}}
+              </td>
+              <td>
+                {{bitDefenderVersion}}
+              </td>
+            </tr>
+            <tr>
+              <td class="containerPLogo">
+                <p class="inline">Gimp
+                  <img class="pLogo inline" src="http://localhost:3002/programLogo/g.jpg" alt="Gimp" />
+                </p>
+              </td>
+              <td>
+                {{gimpCheck}}
+              </td>
+              <td>
+                {{gimpVersion}}
+              </td>
+            </tr>
+            <tr>
+              <td class="containerPLogo">
+                <p class="inline">Adobe Acrobat
+                  <img class="pLogo inline" src="http://localhost:3002/programLogo/a.jpg" alt="Adobe Acrobat" />
+                </p>
+              </td>
+              <td>
+                {{adobeCheck}}
+              </td>
+              <td>
+                {{adobeVersion}}
+              </td>
+            </tr>
+            <tr>
+              <td class="containerPLogo">
+                <p class="inline">GanttProject
+                  <img class="pLogo inline" src="http://localhost:3002/programLogo/g.1.jpg" alt="GanttProject" />
+                </p>
+              </td>
+              <td>
+                {{ganttCheck}}
+              </td>
+              <td>
+                {{ganttVersion}}
+              </td>
+            </tr>
+            <tr>
+              <td class="containerPLogo">
+                <p class="inline">LibreOffice
+                  <img class="pLogo inline" src="http://localhost:3002/programLogo/lo.jpg" alt="LibreOffice" />
+                </p>
+              </td>
+              <td>
+                {{libreOfficeCheck}}
+              </td>
+              <td>
+                {{libreOfficeVersion}}
+              </td>
+            </tr>
+            <tr>
+              <td class="containerPLogo">
+                <p class="inline">WinRAR
+                  <img class="pLogo inline" src="http://localhost:3002/programLogo/rar.jpg" alt="WinRAR" />
+                </p>
+              </td>
+              <td>
+                {{winRARCheck}}
+              </td>
+              <td>
+                {{winRARVersion}}
+              </td>
+            </tr>
+            <tr>
+              <td class="containerPLogo">
+                <p class="inline">Chrome
+                  <img class="pLogo inline" src="http://localhost:3002/programLogo/ch.jpg" alt="WinRAR" />
+                </p>
+              </td>
+              <td>
+                {{chromeCheck}}
+              </td>
+              <td>
+                {{chromeVersion}}
+              </td>
+            </tr>
+            <tr>
+              <td class="containerPLogo">
+                <p class="inline">VLC
+                  <img class="pLogo inline" src="http://localhost:3002/programLogo/vlc.jpg" alt="VLC" />
+                </p>
+              </td>
+              <td>
+                {{vlcCheck}}
+              </td>
+              <td>
+                {{vlcVersion}}
+              </td>
+            </tr>
+            <tr>
+              <td class="containerPLogo">
+                <p class="inline">SAP
+                  <img class="pLogo inline" src="http://localhost:3002/programLogo/sap.jpg" alt="SAP" />
+                </p>
+              </td>
+              <td>
+                {{sapCheck}}
+              </td>
+              <td>
+                {{sapVersion}}
+              </td>
+            </tr>
+            <tr>
+              <td class="containerPLogo">
+                <p class="inline">Autodesk
+                  <img class="pLogo inline" src="http://localhost:3002/programLogo/ad.jpg" alt="Autodesk" />
+                </p>
+              </td>
+              <td>
+                {{autodeskCheck}}
+              </td>
+              <td>
+                {{autodeskVersion}}
+              </td>
+            </tr>
+            <tr>
+              <td class="containerPLogo">
+                <p class="inline">TeamViewer
+                  <img class="pLogo inline" src="http://localhost:3002/programLogo/tv.jpg" alt="TeamViewer" />
+                </p>
+              </td>
+              <td>
+                {{tvCheck}}
+              </td>
+              <td>
+                {{tvVersion}}
+              </td>
+            </tr>
+            <tr>
+              <td class="containerPLogo">
+                <p class="inline">InkScape
+                  <img class="pLogo inline" src="http://localhost:3002/programLogo/ins.jpg" alt="InkScape" />
+                </p>
+              </td>
+              <td>
+                {{inkCheck}}
+              </td>
+              <td>
+                {{inkVersion}}
+              </td>
+            </tr>
+            <tr>
+              <td class="containerPLogo">
+                <p class="inline">Firefox
+                  <img class="pLogo inline" src="http://localhost:3002/programLogo/fir.jpg" alt="Firefox" />
+                </p>
+              </td>
+              <td>
+                {{firefoxCheck}}
+              </td>
+              <td>
+                {{firefoxVersion}}
+              </td>
+            </tr>
+            <tr>
+              <td class="containerPLogo">
+                <p class="inline">Microsoft Teams
+                  <img class="pLogo inline" src="http://localhost:3002/programLogo/teams.jpg" alt="Teams" />
+                </p>
+              </td>
+              <td>
+                {{teamsCheck}}
+              </td>
+              <td>
+                {{teamsVersion}}
+              </td>
+            </tr>
+
+            <tr>
+              <td class="containerPLogo">
+                <p class="inline">Bit Warden
+                  <img class="pLogo inline" src="http://localhost:3002/programLogo/bw.jpg" alt="Bit Warden" />
+                </p>
+              </td>
+              <td>
+                {{bwCheck}}
+              </td>
+              <td>
+                {{bwVersion}}
+              </td>
+            </tr>
+
+            <tr>
+              <td class="containerPLogo">
+                <p class="inline">AIMP
+                  <img class="pLogo inline" src="http://localhost:3002/programLogo/aimp.jpg" alt="AIMP" />
+                </p>
+              </td>
+              <td>
+                {{aimpCheck}}
+              </td>
+              <td>
+                {{aimpVersion}}
+              </td>
+            </tr>
+
+            <tr>
+              <td class="containerPLogo">
+                <p class="inline">Draw.io <img class="pLogo inline" src="http://localhost:3002/programLogo/draw.jpg"
+                    alt="Draw.io" />
+                </p>
+              </td>
+              <td>
+                {{drawCheck}}
+              </td>
+              <td>
+                {{drawVersion}}
+              </td>
+            </tr>
+
+            <tr>
+              <td class="containerPLogo">
+                <p class="inline">AnyDesk <img class="pLogo inline" src="http://localhost:3002/programLogo/any.jpg"
+                    alt="AnyDesk" />
+                </p>
+              </td>
+              <td>
+                {{anyCheck}}
+              </td>
+              <td>
+                {{anyVersion}}
+              </td>
+            </tr>
+
+            <tr>
+              <td class="containerPLogo">
+                <p class="inline">LightShot <img class="pLogo inline" src="http://localhost:3002/programLogo/lig.jpg"
+                    alt="LightShot" />
+                </p>
+              </td>
+              <td>
+                {{ligCheck}}
+              </td>
+              <td>
+                {{ligVersion}}
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+      <br>
+      <div>
+        <h1>LISTA DE SOFTWARE ADICIONAL</h1>
+        <table>
+          <td>Visual</td>
+          <td>2.35</td>
+        </table>
+      </div>
+    </div>
+
+  </div>
+  <img src="http://localhost:3002/footer.png" alt="Pie de pagina" style="max-width: 612px;">
+
+
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+# Logs
+documento-digital-api/logs
+documento-digital-api/*.log
+documento-digital-api/npm-debug.log*
+documento-digital-api/yarn-debug.log*
+documento-digital-api/yarn-error.log*
+documento-digital-api/pnpm-debug.log*
+documento-digital-api/lerna-debug.log*
+
+documento-digital-api/node_modules
+documento-digital-api/dist
+documento-digital-api/dist-ssr
+documento-digital-api/*.local
+documento-digital-api/.env
+
+
+# Editor directories and files
+documento-digital-api/.vscode/*
+documento-digital-api/!.vscode/extensions.json
+documento-digital-api/.idea
+documento-digital-api/.DS_Store
+documento-digital-api/*.suo
+documento-digital-api/*.ntvs*
+documento-digital-api/*.njsproj
+documento-digital-api/*.sln
+documento-digital-api/*.sw?
+
+##! Documento digital frontEnd
+# Logs
+documento-digital/logs
+documento-digital/*.log
+documento-digital/npm-debug.log*
+documento-digital/yarn-debug.log*
+documento-digital/yarn-error.log*
+documento-digital/pnpm-debug.log*
+documento-digital/lerna-debug.log*
+
+documento-digital/node_modules
+documento-digital/dist
+documento-digital/dist-ssr
+documento-digital/*.local
+
+# Editor directories and files
+documento-digital/.vscode/*
+documento-digital/!.vscode/extensions.json
+documento-digital/.idea
+documento-digital/.DS_Store
+documento-digital/*.suo
+documento-digital/*.ntvs*
+documento-digital/*.njsproj
+documento-digital/*.sln
+documento-digital/*.sw?

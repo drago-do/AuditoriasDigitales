@@ -1,0 +1,50 @@
+.noPadding div {
+  padding: 0 !important;
+}
+
+.logo {
+  max-height: 100px;
+}
+
+.titulo {
+  padding: 20px 0;
+  color: var(--background-color-primary);
+  font-weight: 800;
+}
+
+.tituloTabla {
+  color: #000;
+  background-color: var(--background-color-secondary);
+  font-weight: 800;
+  padding: 5px 0;
+  margin: 0;
+}
+
+.datoSolicitado {
+  padding: 0px 10px;
+  margin: 0;
+  background-color: var(--background-color-light);
+  border: solid 1px var(--background-color-third);
+  width: 100%;
+  height: 100%;
+}
+
+p.datoSolicitado {
+  text-align: end;
+}
+
+.containerPLogo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.containerPLogo p {
+  margin: 3px;
+}
+
+.pLogo {
+  width: 20px;
+  height: 20px;
+}
+
+
