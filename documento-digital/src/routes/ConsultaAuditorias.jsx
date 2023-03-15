@@ -38,7 +38,7 @@ export default function ConsultaAuditorias() {
         justifyContent: "center",
       }}
     >
-      <h1>ConsultaAuditorias</h1>
+      <h1>Consulta de Auditorias</h1>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus
         temporibus delectus quidem voluptas, ipsa nulla? Cupiditate, iure

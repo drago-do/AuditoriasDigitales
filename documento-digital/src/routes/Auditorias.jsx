@@ -314,24 +314,30 @@ export default function Auditorias() {
               <p className={style.datoSolicitado}>Tipo:</p>
             </div>
             <div className="col-6 col-sm-4">
-              <input
-                type="text"
+              <select
                 name="tipo"
                 required
                 className={style.datoSolicitado}
-              ></input>
+                defaultValue="Escritorio"
+              >
+                <option value="Escritorio">Escritorio</option>
+                <option value="Laptop">Laptop</option>
+                <option value="Tableta">Tableta</option>
+              </select>
             </div>
             <div className="col-6 col-sm-2">
               <p className={style.datoSolicitado}>Marca:</p>
             </div>
             <div className="col-6 col-sm-4">
-              <input
-                type="text"
+              <select
                 name="marca"
                 required
                 defaultValue="Dell"
                 className={style.datoSolicitado}
-              ></input>
+              >
+                <option value="Dell">Dell</option>
+                <option value="Mac">Mac</option>
+              </select>
             </div>
           </div>
 
