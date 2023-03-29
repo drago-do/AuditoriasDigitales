@@ -4,7 +4,7 @@ import axios from "axios";
 import ItemDocumentoAuditoria from "../components/itemDocumentoAuditorias";
 import Pagination from "@mui/material/Pagination";
 
-const API_URL = process.env.API_URL + "/document/F_TI_DT_013REV3";
+const API_URL = process.env.API_URL + "document/F_TI_DT_013REV3";
 
 export default function ConsultaAuditorias() {
   // const [registros, setRegistros] = useState(null);

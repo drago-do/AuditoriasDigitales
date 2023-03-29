@@ -1,0 +1,40 @@
+###
+POST http://localhost:3002/user HTTP/1.1
+Content-Type: application/json
+
+{
+  "timeStamp": 1680077694903,
+  "usuario" : {
+    "username": "drago",
+    "password": "37a8eec1ce19687d132fe29051dca629d164e2c4958ba141d5f4133a33f0688f",
+    "pin": 4353
+  }
+}
+
+
+###
+POST http://localhost:3002/user/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "1234"
+}
+
+
+
+###
+GET http://localhost:3002/user   HTTP/1.1
+
+
+###
+GET http://localhost:3002/user/2  HTTP/1.1
+
+
+###
+PUT http://localhost:3002/user/6409c17a6900cb97dad8b0cd HTTP/1.1
+Content-Type: application/json
+
+
+###
+DELETE  http://localhost:3002/user/6422bc656d3d1c7e3f45f377  HTTP/1.1

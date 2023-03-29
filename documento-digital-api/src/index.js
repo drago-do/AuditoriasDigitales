@@ -48,6 +48,7 @@ app.use(
   "/document/F_TI_DT_013REV3_PDF",
   require("./routes/F_TI_DT_013REV3_PDF")
 );
+app.use("/user", require("./routes/user"));
 
 //Iniciando el servidor
 app.listen(app.get("port"), () => {

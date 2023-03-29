@@ -29,13 +29,31 @@
   color: var(--text-color-secondary);
   font-weight: bold;
   transition: all 0.5s ease;
+  margin-right: 10px;
 }
 
-
+.deleteLink {
+  padding: 10px;
+  border-radius: 20px;
+  text-decoration: none;
+  color: var(--text-color-secondary);
+  font-weight: bold;
+  transition: all 0.5s ease;
+  background-color: rgb(205, 0, 0);
+  cursor: pointer;
+  margin-right: 10px;
+}
 
 .link:hover {
   background-color: var(--background-color-secondary);
   transform: scale(1.1);
+  color: var(--text-color-secondary);
+  font-weight: bold;
+}
+
+.deleteLink:hover {
+  background-color: rgb(163, 17, 17);
+  transform: scale(0.9);
   color: var(--text-color-secondary);
   font-weight: bold;
 }

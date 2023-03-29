@@ -4,7 +4,7 @@ import axios from "axios";
 
 import style from "./../css/Auditorias.module.css";
 
-const URLapi = "http://127.0.0.1:3002/document/F_TI_DT_013REV3";
+const API_URL = process.env.API_URL + "document/F_TI_DT_013REV3";
 
 export default function Auditorias() {
   const [loader, setLoader] = useState(false);
@@ -141,7 +141,7 @@ export default function Auditorias() {
   const enviarDatos = (dataForm) => {
     //Enviar dataForm via post a URLapi usando axios
     axios
-      .post(URLapi, dataForm)
+      .post(API_URL, dataForm)
       .then((response) => {
         //Si la respuesta es un código 200 entonces redirigir a pagina de DetallesRegistro, enviando parámetros (envió: true, mensaje: "string")
         if (response.status === 200) {
@@ -920,7 +920,7 @@ export default function Auditorias() {
             <div className="col-1 .d-lg-none"></div>
             <div className="col-12 col-lg-5 text-center tituloTabla">
               <h5>LISTA DE SOFTWARE BASE</h5>
-              <div class="table-responsive">
+              <div className="table-responsive">
                 <table className="table table-sm table-light table-striped tableInput">
                   <thead>
                     <tr>
@@ -1450,7 +1450,7 @@ export default function Auditorias() {
             <div className="col-1 .d-lg-none"></div>
             <div className="col-12 col-lg-4 text-center tituloTabla">
               <h5>SOFTWARE BASE ADICIONAL</h5>
-              <div class="table-responsive">
+              <div className="table-responsive">
                 <table className="table table-light table-striped">
                   <thead>
                     <tr>
@@ -1668,23 +1668,13 @@ export default function Auditorias() {
           <br />
 
           <div className="row">
-            <div className="col-5">
+            <div className="col">
               <button
                 type="submit"
                 className="btn btn-success"
                 style={{ width: "100%" }}
               >
                 Enviar formulario
-              </button>
-            </div>
-            <div className="col-2"></div>
-            <div className="col-5">
-              <button
-                type="reset"
-                className="btn btn-danger"
-                style={{ width: "100%" }}
-              >
-                Limpiar datos
               </button>
             </div>
           </div>
