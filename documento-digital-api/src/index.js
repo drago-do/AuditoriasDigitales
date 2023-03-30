@@ -49,6 +49,7 @@ app.use(
   require("./routes/F_TI_DT_013REV3_PDF")
 );
 app.use("/user", require("./routes/user"));
+app.use("/responsivaST", require("./routes/responsivaST"));
 
 //Iniciando el servidor
 app.listen(app.get("port"), () => {

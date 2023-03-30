@@ -20,7 +20,7 @@ export default function DetallesRegistro(props) {
   if (envio === "true") {
     return (
       <div className="contenedorPrincipal">
-        <div className="mensaje">
+        <div className="mensaje mensajeExito">
           <AiFillCheckSquare />
           <h1>Envió Exitoso.</h1>
           <h2>Tu documento fue guardado con éxito.</h2>

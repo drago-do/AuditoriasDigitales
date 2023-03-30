@@ -89,4 +89,21 @@ router.delete("/:id", (req, res) => {
     .catch((error) => res.json({ message: error }));
 });
 
+//Get response if user pin exist
+router.get("/pin/:pinConsulta", (req, res) => {
+  //rescatar pinConsulta
+  const { pinConsulta } = req.params;
+  //Buscar en la base de datos si existe pin == pinConsulta
+  User.findOne({ pin: pinConsulta })
+    .then((data) => {
+      if (data) {
+        //Regresa el username de el pin que concuerda con el usuario
+        res.status(200).json({ _id: data._id });
+      } else {
+        res.status(401).json({ _id: false });
+      }
+    })
+    .catch((error) => res.json({ message: error }));
+});
+
 module.exports = router;

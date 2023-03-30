@@ -9,133 +9,162 @@ const API_URL = process.env.API_URL + "document/F_TI_DT_013REV3";
 export default function Auditorias() {
   const [loader, setLoader] = useState(false);
 
+  const verificarPinAuditor = (pin) => {
+    //Promesa
+    return new Promise((resolve, reject) => {
+      //Petición axios a url + user/pin/ + pin
+      const url = process.env.API_URL;
+      axios
+        .get(url + "user/pin/" + pin)
+        .then((response) => {
+          resolve(response.data._id);
+        })
+        .catch((err) => {
+          console.log(err);
+          reject(false);
+        });
+    });
+  };
+
   const handleSubmit = (event) => {
+    event.preventDefault();
+
     const fecha = new Date();
     const dataDia = fecha.getDate();
     const dataMes = fecha.getMonth() + 1;
     const dataAnio = fecha.getFullYear();
 
-    event.preventDefault();
     const data = new FormData(event.currentTarget);
     const softwareAdicional = softwareBaseAdicional(data);
-    let dataForm = {
-      id: Date.now(),
-      dia: dataDia,
-      mes: dataMes,
-      anio: dataAnio,
-      datosUsuarioResponsable: {
-        nombre: data.get("nombre"),
-        puesto: data.get("puesto"),
-        ubicacion: data.get("ubicacion"),
-        direccion: data.get("direccion"),
-      },
+    //Verificar Pin de auditor
+    verificarPinAuditor(data.get("pin"))
+      .then((idAuditor) => {
+        let dataForm = {
+          id: Date.now(),
+          dia: dataDia,
+          mes: dataMes,
+          anio: dataAnio,
+          pin: data.get("pin"),
+          idAuditor: idAuditor,
+          datosUsuarioResponsable: {
+            nombre: data.get("nombre"),
+            puesto: data.get("puesto"),
+            ubicacion: data.get("ubicacion"),
+            direccion: data.get("direccion"),
+          },
 
-      datosEquipo: {
-        tipo: data.get("tipo"),
-        marca: data.get("marca"),
-        modelo: data.get("modelo"),
-        serviceTag: data.get("serviceTag"),
-        macWIFI: data.get("macWIFI"),
-        macLAN: data.get("macLAN"),
-        nombreEquipo: data.get("nombreEquipo"),
-        dominio: data.get("dominio"),
-        accesoriosTIC: data.get("accesoriosTIC"),
-        accesoriosPer: data.get("accesoriosPer"),
-      },
+          datosEquipo: {
+            tipo: data.get("tipo"),
+            marca: data.get("marca"),
+            modelo: data.get("modelo"),
+            serviceTag: data.get("serviceTag"),
+            macWIFI: data.get("macWIFI"),
+            macLAN: data.get("macLAN"),
+            nombreEquipo: data.get("nombreEquipo"),
+            dominio: data.get("dominio"),
+            accesoriosTIC: data.get("accesoriosTIC"),
+            accesoriosPer: data.get("accesoriosPer"),
+          },
 
-      arquitecturaEquipo: {
-        SO: data.get("SO"),
-        versionSO: data.get("versionSO"),
-        arquitectura: data.get("arquitectura"),
-        officeVersion: data.get("officeVersion"),
-        ram: data.get("ram"),
-        agenteKase: data.get("kase"),
-        tarjetaExtra: data.get("tarjetaExtra"),
-      },
-      configuracionBasica: {
-        usuarioAdminTIC: data.get("usAdmin"),
-        contraAdminHomologada: data.get("passAdmin"),
-        permisosEstandares: data.get("permisos"),
-        carpetaImagenGrupak: data.get("carpeta"),
-        identidadGrupak: data.get("identidad"),
-        menuGrupakDefault: data.get("menu"),
-        vpn: data.get("vpn"),
-        firmaCorreo: data.get("firma"),
-        instanciaSAP: data.get("instancia"),
-        oneDriveActualizado: data.get("oneDrive"),
-      },
-      configuracionSeguridad: {
-        accesoNoVigilado: data.get("noVigilado"),
-        zonaCoberturaDeshabilitado: data.get("cobertura"),
-        iexplorerDeshabilitado: data.get("ie"),
-        internetRestringido: data.get("internet"),
-        recordarContraDeshabilitado: data.get("recordar"),
-        gestorContra: data.get("gestor"),
-        dobleAuthCorreo: data.get("doble"),
-      },
-      softwareBase: {
-        bitDefender: softwareInstalado(data.get("bitDefender"))
-          ? data.get("bitDefenderVersion")
-          : "NO INSTALADO",
-        gimp: softwareInstalado(data.get("gimp"))
-          ? data.get("gimpVersion")
-          : "NO INSTALADO",
-        adobe: softwareInstalado(data.get("adobe"))
-          ? data.get("adobeVersion")
-          : "NO INSTALADO",
-        ganttProject: softwareInstalado(data.get("ganttProject"))
-          ? data.get("ganttProjectVersion")
-          : "NO INSTALADO",
-        libreOffice: softwareInstalado(data.get("libreOffice"))
-          ? data.get("libreOfficeVersion")
-          : "NO INSTALADO",
-        winRAR: softwareInstalado(data.get("winRAR"))
-          ? data.get("winRARVersion")
-          : "NO INSTALADO",
-        chrome: softwareInstalado(data.get("chrome"))
-          ? data.get("chromeVersion")
-          : "NO INSTALADO",
-        vlc: softwareInstalado(data.get("vlc"))
-          ? data.get("vlcVersion")
-          : "NO INSTALADO",
-        sap: softwareInstalado(data.get("sap"))
-          ? data.get("sapVersion")
-          : "NO INSTALADO",
-        autoDesk: softwareInstalado(data.get("autoDesk"))
-          ? data.get("autoDeskVersion")
-          : "NO INSTALADO",
-        teamViewer: softwareInstalado(data.get("teamViewer"))
-          ? data.get("teamViewerVersion")
-          : "NO INSTALADO",
-        inkscape: softwareInstalado(data.get("inkscape"))
-          ? data.get("inkscapeVersion")
-          : "NO INSTALADO",
-        firefox: softwareInstalado(data.get("firefox"))
-          ? data.get("firefoxVersion")
-          : "NO INSTALADO",
-        microsoftTeams: softwareInstalado(data.get("microsoftTeams"))
-          ? data.get("microsoftTeamsVersion")
-          : "NO INSTALADO",
-        bitWarden: softwareInstalado(data.get("bitWarden"))
-          ? data.get("bitWardenVersion")
-          : "NO INSTALADO",
-        aimp: softwareInstalado(data.get("aimp"))
-          ? data.get("aimpVersion")
-          : "NO INSTALADO",
-        drawio: softwareInstalado(data.get("drawio"))
-          ? data.get("drawioVersion")
-          : "NO INSTALADO",
-        anyDesk: softwareInstalado(data.get("anyDesk"))
-          ? data.get("anyDeskVersion")
-          : "NO INSTALADO",
-        lightShot: softwareInstalado(data.get("lightShot"))
-          ? data.get("lightShotVersion")
-          : "NO INSTALADO",
-      },
-      softwareAdicional: softwareAdicional,
-    };
-    setLoader(true);
-    enviarDatos(dataForm);
+          arquitecturaEquipo: {
+            SO: data.get("SO"),
+            versionSO: data.get("versionSO"),
+            arquitectura: data.get("arquitectura"),
+            officeVersion: data.get("officeVersion"),
+            ram: data.get("ram"),
+            agenteKase: data.get("kase"),
+            tarjetaExtra: data.get("tarjetaExtra"),
+          },
+          configuracionBasica: {
+            usuarioAdminTIC: data.get("usAdmin"),
+            contraAdminHomologada: data.get("passAdmin"),
+            permisosEstandares: data.get("permisos"),
+            carpetaImagenGrupak: data.get("carpeta"),
+            identidadGrupak: data.get("identidad"),
+            menuGrupakDefault: data.get("menu"),
+            vpn: data.get("vpn"),
+            firmaCorreo: data.get("firma"),
+            instanciaSAP: data.get("instancia"),
+            oneDriveActualizado: data.get("oneDrive"),
+          },
+          configuracionSeguridad: {
+            accesoNoVigilado: data.get("noVigilado"),
+            zonaCoberturaDeshabilitado: data.get("cobertura"),
+            iexplorerDeshabilitado: data.get("ie"),
+            internetRestringido: data.get("internet"),
+            recordarContraDeshabilitado: data.get("recordar"),
+            gestorContra: data.get("gestor"),
+            dobleAuthCorreo: data.get("doble"),
+          },
+          softwareBase: {
+            bitDefender: softwareInstalado(data.get("bitDefender"))
+              ? data.get("bitDefenderVersion")
+              : "NO INSTALADO",
+            gimp: softwareInstalado(data.get("gimp"))
+              ? data.get("gimpVersion")
+              : "NO INSTALADO",
+            adobe: softwareInstalado(data.get("adobe"))
+              ? data.get("adobeVersion")
+              : "NO INSTALADO",
+            ganttProject: softwareInstalado(data.get("ganttProject"))
+              ? data.get("ganttProjectVersion")
+              : "NO INSTALADO",
+            libreOffice: softwareInstalado(data.get("libreOffice"))
+              ? data.get("libreOfficeVersion")
+              : "NO INSTALADO",
+            winRAR: softwareInstalado(data.get("winRAR"))
+              ? data.get("winRARVersion")
+              : "NO INSTALADO",
+            chrome: softwareInstalado(data.get("chrome"))
+              ? data.get("chromeVersion")
+              : "NO INSTALADO",
+            vlc: softwareInstalado(data.get("vlc"))
+              ? data.get("vlcVersion")
+              : "NO INSTALADO",
+            sap: softwareInstalado(data.get("sap"))
+              ? data.get("sapVersion")
+              : "NO INSTALADO",
+            autoDesk: softwareInstalado(data.get("autoDesk"))
+              ? data.get("autoDeskVersion")
+              : "NO INSTALADO",
+            teamViewer: softwareInstalado(data.get("teamViewer"))
+              ? data.get("teamViewerVersion")
+              : "NO INSTALADO",
+            inkscape: softwareInstalado(data.get("inkscape"))
+              ? data.get("inkscapeVersion")
+              : "NO INSTALADO",
+            firefox: softwareInstalado(data.get("firefox"))
+              ? data.get("firefoxVersion")
+              : "NO INSTALADO",
+            microsoftTeams: softwareInstalado(data.get("microsoftTeams"))
+              ? data.get("microsoftTeamsVersion")
+              : "NO INSTALADO",
+            bitWarden: softwareInstalado(data.get("bitWarden"))
+              ? data.get("bitWardenVersion")
+              : "NO INSTALADO",
+            aimp: softwareInstalado(data.get("aimp"))
+              ? data.get("aimpVersion")
+              : "NO INSTALADO",
+            drawio: softwareInstalado(data.get("drawio"))
+              ? data.get("drawioVersion")
+              : "NO INSTALADO",
+            anyDesk: softwareInstalado(data.get("anyDesk"))
+              ? data.get("anyDeskVersion")
+              : "NO INSTALADO",
+            lightShot: softwareInstalado(data.get("lightShot"))
+              ? data.get("lightShotVersion")
+              : "NO INSTALADO",
+          },
+          softwareAdicional: softwareAdicional,
+        };
+        setLoader(true);
+        console.log(dataForm);
+        enviarDatos(dataForm);
+      })
+      .catch(() => {
+        alert("Pin de auditor incorrecto.");
+        return;
+      });
   };
 
   const enviarDatos = (dataForm) => {
@@ -145,14 +174,13 @@ export default function Auditorias() {
       .then((response) => {
         //Si la respuesta es un código 200 entonces redirigir a pagina de DetallesRegistro, enviando parámetros (envió: true, mensaje: "string")
         if (response.status === 200) {
-          console.warn("hey");
           console.log(response.data._id);
           //Sleep 1 second
           setTimeout(() => {
             //redirigir sin usar router
             window.location.href = `/detalles-registro?envio=true&idDocumento=${JSON.stringify(
               response.data._id
-            )}&tipoDocumento=/document/F_TI_DT_013REV3_PDF/`;
+            )}&tipoDocumento=document/F_TI_DT_013REV3_PDF/`;
           }, 5000);
         }
       })
@@ -224,6 +252,18 @@ export default function Auditorias() {
                 src="/grupak-logo.png"
                 alt="Grupak Logo"
                 className={style.logo}
+              />
+            </div>
+            <div className="col-4">
+              <label htmlFor="pin" style={{ marginRight: "5px" }}>
+                Pin de Auditor{" "}
+              </label>
+              <input
+                type="text"
+                name="pin"
+                autoComplete="number"
+                required
+                placeholder="Ingresa tu pin de auditor"
               />
             </div>
           </div>

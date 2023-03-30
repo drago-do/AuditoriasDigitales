@@ -17,6 +17,15 @@ const F_TI_DT_013REV3Schema = mongoose.Schema({
     type: String,
     required: true,
   },
+  pin: {
+    type: Number,
+    required: true,
+  },
+  idAuditor: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "users",
+    required: true,
+  },
   datosUsuarioResponsable: {
     nombre: {
       type: String,

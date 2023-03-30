@@ -21,6 +21,7 @@ export default function Administrar() {
       setLogin(true);
     }
   };
+
   return (
     <div className="container">
       <div className="row">
@@ -48,6 +49,7 @@ const Usuarios = () => {
   const [usuarios, setUsuarios] = useState();
   const [nombreUsuario, setNombreUsuario] = useState();
   const [userDelete, setUserDelete] = useState();
+  const [responsivasST, setResponsivasST] = useState();
 
   useEffect(() => {
     obtenerUsuarios();
@@ -62,6 +64,7 @@ const Usuarios = () => {
       })
       .catch((error) => {
         console.log(error);
+        window.location.href = "/";
       });
   };
 
@@ -85,6 +88,7 @@ const Usuarios = () => {
       })
       .catch((error) => {
         console.log(error);
+        window.location.href = "/";
       });
   };
 
@@ -94,6 +98,38 @@ const Usuarios = () => {
       .then((response) => {
         console.log(response);
         obtenerUsuarios();
+      })
+      .catch((error) => {
+        console.log(error);
+        // redireccionar a pagina inicio al encontra error
+        window.location.href = "/";
+      });
+  };
+
+  const addResponsivaST = () => {
+    //Convertir en un array "responsivasST", separando el string en cada salto de linea
+    let responsivasSTArray = responsivasST.split("\n");
+    // console.log(responsivasSTArray);
+    //Guardar en un objeto cada ServiceTag con su numero de responsiva. Esto se obtiene de recorrer "responsivasSTArray" y separar serviceTag y Responsiva cada ","
+    let responsivasSTObj = {};
+    responsivasSTArray.forEach((responsiva, index) => {
+      let numeroResponsiva = responsiva.split(",")[0];
+      let serviceTag = responsiva.split(",")[1];
+      responsivasSTObj[index] = {
+        serviceTag: serviceTag,
+        numeroResponsiva: numeroResponsiva,
+      };
+    });
+    console.log(responsivasSTObj);
+
+    let urlAPIRoot = process.env.API_URL;
+    axios
+      .post(urlAPIRoot + "responsivaST", {
+        responsivasSTObj,
+      })
+      .then((response) => {
+        console.log(response);
+        alert("Responsivas agregadas");
       })
       .catch((error) => {
         console.log(error);
@@ -203,6 +239,45 @@ const Usuarios = () => {
             >
               Añadir nuevo usuario
             </button>
+          </div>
+
+          <h3>Añadir números de responsiva</h3>
+          <p>
+            Los números de responsiva están asociados a solo un{" "}
+            <b>Service Tag</b>, el numero de responsiva se documentará solo si
+            existe un <b>Service Tag</b> asociado a este.
+            <br />
+            El formato para agregar responsivas asociadas a Service Tag es el
+            siguiente:
+            <br />
+            <b>Responsiva,ServiceTag</b>
+            <br />
+            <b>Responsiva,ServiceTag</b>
+            <br />
+            <br />
+            Se pueden agregar tantos como quieras, dando un salto de linea para
+            cada asociación.
+          </p>
+          <div className="col-12 my-3">
+            <div className="input-group mb-3">
+              {/* Text Area para agregar numerosDeresponsiva,SeviceTag */}
+              <textarea
+                className="form-control"
+                id="exampleFormControlTextarea1"
+                rows="3"
+                placeholder="004ASC,5C8R8B3
+005ASC,5C9Q8B3"
+                onChange={(event) => setResponsivasST(event.target.value)}
+              ></textarea>
+              <button
+                className="btn btn-outline-secondary"
+                type="button"
+                id="button-addon2"
+                onClick={addResponsivaST}
+              >
+                Añadir responsivas
+              </button>
+            </div>
           </div>
         </div>
       </div>

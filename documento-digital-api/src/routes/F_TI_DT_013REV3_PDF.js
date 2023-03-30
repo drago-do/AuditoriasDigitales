@@ -2,8 +2,10 @@ const { Router } = require("express");
 const router = Router();
 //Requerir el Schema para CRUD DOCUMENT F_TI_DT_013REV3
 const documentF_TI_DT_013REV3Schema = require("../models/F_TI_DT_013REV3");
+const Users = require("./../models/user");
 const pdf = require("html-pdf");
 const path = require("path");
+const User = require("./../models/user");
 
 const options = {
   format: "letter",
@@ -81,7 +83,9 @@ var content = `<!doctype html>
       <img class="logo" src="http://localhost:3002/grupak_logo.png" alt="imagen logo" style="width: 100px;" />
       <span>Ref. P-TI-DT-010</span>
     </div>
-    <p style="text-align: end; font-size: 12px;">Fecha: {{fecha}}</p>
+    <p style="text-align: end; font-size: 12px;">
+    <span>Nombre de auditor: {{nombreAuditor}}</span>
+    Fecha: {{fecha}}</p>
     <br>
     <br>
     <h1>Datos del usuario responsable del equipo</h1>
@@ -576,289 +580,304 @@ router.get("/:id", (req, res) => {
 });
 
 function insertarDatosDocumento(data) {
-  //!Fecha
-  content = content.replace(
-    "{{fecha}}",
-    data.dia + "/" + data.mes + "/" + data.anio
-  );
-  //!Datos del usuario responsable
-  content = content.replace("{{nombre}}", data.datosUsuarioResponsable.nombre);
-  content = content.replace("{{puesto}}", data.datosUsuarioResponsable.puesto);
-  content = content.replace(
-    "{{ubicacion}}",
-    data.datosUsuarioResponsable.ubicacion
-  );
-  content = content.replace(
-    "{{direccion}}",
-    data.datosUsuarioResponsable.direccion
-  );
-  //!Datos del equipo
-  content = content.replace("{{tipo}}", data.datosEquipo.tipo);
-  content = content.replace("{{marca}}", data.datosEquipo.marca);
-  content = content.replace("{{modelo}}", data.datosEquipo.modelo);
-  content = content.replace("{{serie}}", data.datosEquipo.serviceTag);
-  content = content.replace("{{mac}}", data.datosEquipo.macWIFI);
-  content = content.replace("{{mac_ethernet}}", data.datosEquipo.macLAN);
-  content = content.replace("{{hostname}}", data.datosEquipo.nombreEquipo);
-  content = content.replace("{{dominio}}", data.datosEquipo.dominio);
-  content = content.replace(
-    "{{accesorios_tic}}",
-    data.datosEquipo.accesoriosTIC
-  );
-  content = content.replace(
-    "{{accesorios_per}}",
-    data.datosEquipo.accesoriosPer
-  );
-  //!Arquitectura equipo
-  content = content.replace("{{SO}}", data.arquitecturaEquipo.SO);
-  content = content.replace("{{versionSO}}", data.arquitecturaEquipo.versionSO);
-  content = content.replace(
-    "{{arquitectura}}",
-    data.arquitecturaEquipo.arquitectura
-  );
-  content = content.replace(
-    "{{officeV}}",
-    data.arquitecturaEquipo.officeVersion
-  );
-  content = content.replace("{{ram}}", data.arquitecturaEquipo.ram);
-  content = content.replace("{{kase}}", data.arquitecturaEquipo.agenteKase);
-  content = content.replace(
-    "{{tarjetaExtra}}",
-    data.arquitecturaEquipo.tarjetaExtra
-  );
-  //!Configuracion básica
-  content = content.replace(
-    "{{usuarioAdminTic}}",
-    data.configuracionBasica.usuarioAdminTIC
-  );
-  content = content.replace(
-    "{{adminHomologada}}",
-    data.configuracionBasica.contraAdminHomologada
-  );
+  //Obtener el username de el documento users en mongo con el id === data.idAuditor
+  User.findById(data.idAuditor).then((respuesta) => {
+    //!Nombre auditor
+    content = content.replace("{{nombreAuditor}}", respuesta.username);
 
-  content = content.replace(
-    "{{permisosEsta}}",
-    data.configuracionBasica.permisosEstandares
-  );
-  content = content.replace(
-    "{{carpetaImg}}",
-    data.configuracionBasica.carpetaImagenGrupak
-  );
-  content = content.replace(
-    "{{fondoPantalla}}",
-    data.configuracionBasica.identidadGrupak
-  );
-  content = content.replace(
-    "{{menu}}",
-    data.configuracionBasica.menuGrupakDefault
-  );
-  content = content.replace("{{vpn}}", data.configuracionBasica.vpn);
-  content = content.replace(
-    "{{firmaCorreo}}",
-    data.configuracionBasica.firmaCorreo
-  );
-  content = content.replace("{{sap}}", data.configuracionBasica.instanciaSAP);
-  content = content.replace(
-    "{{oneDrive}}",
-    data.configuracionBasica.oneDriveActualizado
-  );
+    //!Fecha
+    content = content.replace(
+      "{{fecha}}",
+      data.dia + "/" + data.mes + "/" + data.anio
+    );
+    //!Datos del usuario responsable
+    content = content.replace(
+      "{{nombre}}",
+      data.datosUsuarioResponsable.nombre
+    );
+    content = content.replace(
+      "{{puesto}}",
+      data.datosUsuarioResponsable.puesto
+    );
+    content = content.replace(
+      "{{ubicacion}}",
+      data.datosUsuarioResponsable.ubicacion
+    );
+    content = content.replace(
+      "{{direccion}}",
+      data.datosUsuarioResponsable.direccion
+    );
+    //!Datos del equipo
+    content = content.replace("{{tipo}}", data.datosEquipo.tipo);
+    content = content.replace("{{marca}}", data.datosEquipo.marca);
+    content = content.replace("{{modelo}}", data.datosEquipo.modelo);
+    content = content.replace("{{serie}}", data.datosEquipo.serviceTag);
+    content = content.replace("{{mac}}", data.datosEquipo.macWIFI);
+    content = content.replace("{{mac_ethernet}}", data.datosEquipo.macLAN);
+    content = content.replace("{{hostname}}", data.datosEquipo.nombreEquipo);
+    content = content.replace("{{dominio}}", data.datosEquipo.dominio);
+    content = content.replace(
+      "{{accesorios_tic}}",
+      data.datosEquipo.accesoriosTIC
+    );
+    content = content.replace(
+      "{{accesorios_per}}",
+      data.datosEquipo.accesoriosPer
+    );
+    //!Arquitectura equipo
+    content = content.replace("{{SO}}", data.arquitecturaEquipo.SO);
+    content = content.replace(
+      "{{versionSO}}",
+      data.arquitecturaEquipo.versionSO
+    );
+    content = content.replace(
+      "{{arquitectura}}",
+      data.arquitecturaEquipo.arquitectura
+    );
+    content = content.replace(
+      "{{officeV}}",
+      data.arquitecturaEquipo.officeVersion
+    );
+    content = content.replace("{{ram}}", data.arquitecturaEquipo.ram);
+    content = content.replace("{{kase}}", data.arquitecturaEquipo.agenteKase);
+    content = content.replace(
+      "{{tarjetaExtra}}",
+      data.arquitecturaEquipo.tarjetaExtra
+    );
+    //!Configuracion básica
+    content = content.replace(
+      "{{usuarioAdminTic}}",
+      data.configuracionBasica.usuarioAdminTIC
+    );
+    content = content.replace(
+      "{{adminHomologada}}",
+      data.configuracionBasica.contraAdminHomologada
+    );
 
-  //!Configuración de seguridad
-  content = content.replace(
-    "{{accesoNoVigilado}}",
-    data.configuracionSeguridad.accesoNoVigilado
-  );
-  content = content.replace(
-    "{{coberturaInalambrica}}",
-    data.configuracionSeguridad.zonaCoberturaDeshabilitado
-  );
-  content = content.replace(
-    "{{ie}}",
-    data.configuracionSeguridad.iexplorerDeshabilitado
-  );
-  content = content.replace(
-    "{{internetRestringido}}",
-    data.configuracionSeguridad.internetRestringido
-  );
-  content = content.replace(
-    "{{recordarContra}}",
-    data.configuracionSeguridad.recordarContraDeshabilitado
-  );
-  content = content.replace(
-    "{{gestorContra}}",
-    data.configuracionSeguridad.gestorContra
-  );
-  content = content.replace(
-    "{{dobleAuth}}",
-    data.configuracionSeguridad.dobleAuthCorreo
-  );
-  //!Software Base
-  content = content.replace(
-    "{{bitDefenderCheck}}",
-    revisarSoftwareBase(data.softwareBase.bitDefender)
-  );
-  content = content.replace(
-    "{{bitDefenderVersion}}",
-    revisarSoftwareBaseVersion(data.softwareBase.bitDefender)
-  );
-  content = content.replace(
-    "{{gimpCheck}}",
-    revisarSoftwareBase(data.softwareBase.gimp)
-  );
-  content = content.replace(
-    "{{gimpVersion}}",
-    revisarSoftwareBaseVersion(data.softwareBase.gimp)
-  );
-  content = content.replace(
-    "{{adobeCheck}}",
-    revisarSoftwareBase(data.softwareBase.adobe)
-  );
-  content = content.replace(
-    "{{adobeVersion}}",
-    revisarSoftwareBaseVersion(data.softwareBase.adobe)
-  );
+    content = content.replace(
+      "{{permisosEsta}}",
+      data.configuracionBasica.permisosEstandares
+    );
+    content = content.replace(
+      "{{carpetaImg}}",
+      data.configuracionBasica.carpetaImagenGrupak
+    );
+    content = content.replace(
+      "{{fondoPantalla}}",
+      data.configuracionBasica.identidadGrupak
+    );
+    content = content.replace(
+      "{{menu}}",
+      data.configuracionBasica.menuGrupakDefault
+    );
+    content = content.replace("{{vpn}}", data.configuracionBasica.vpn);
+    content = content.replace(
+      "{{firmaCorreo}}",
+      data.configuracionBasica.firmaCorreo
+    );
+    content = content.replace("{{sap}}", data.configuracionBasica.instanciaSAP);
+    content = content.replace(
+      "{{oneDrive}}",
+      data.configuracionBasica.oneDriveActualizado
+    );
 
-  content = content.replace(
-    "{{ganttCheck}}",
-    revisarSoftwareBase(data.softwareBase.ganttProject)
-  );
-  content = content.replace(
-    "{{ganttVersion}}",
-    revisarSoftwareBaseVersion(data.softwareBase.ganttProject)
-  );
+    //!Configuración de seguridad
+    content = content.replace(
+      "{{accesoNoVigilado}}",
+      data.configuracionSeguridad.accesoNoVigilado
+    );
+    content = content.replace(
+      "{{coberturaInalambrica}}",
+      data.configuracionSeguridad.zonaCoberturaDeshabilitado
+    );
+    content = content.replace(
+      "{{ie}}",
+      data.configuracionSeguridad.iexplorerDeshabilitado
+    );
+    content = content.replace(
+      "{{internetRestringido}}",
+      data.configuracionSeguridad.internetRestringido
+    );
+    content = content.replace(
+      "{{recordarContra}}",
+      data.configuracionSeguridad.recordarContraDeshabilitado
+    );
+    content = content.replace(
+      "{{gestorContra}}",
+      data.configuracionSeguridad.gestorContra
+    );
+    content = content.replace(
+      "{{dobleAuth}}",
+      data.configuracionSeguridad.dobleAuthCorreo
+    );
+    //!Software Base
+    content = content.replace(
+      "{{bitDefenderCheck}}",
+      revisarSoftwareBase(data.softwareBase.bitDefender)
+    );
+    content = content.replace(
+      "{{bitDefenderVersion}}",
+      revisarSoftwareBaseVersion(data.softwareBase.bitDefender)
+    );
+    content = content.replace(
+      "{{gimpCheck}}",
+      revisarSoftwareBase(data.softwareBase.gimp)
+    );
+    content = content.replace(
+      "{{gimpVersion}}",
+      revisarSoftwareBaseVersion(data.softwareBase.gimp)
+    );
+    content = content.replace(
+      "{{adobeCheck}}",
+      revisarSoftwareBase(data.softwareBase.adobe)
+    );
+    content = content.replace(
+      "{{adobeVersion}}",
+      revisarSoftwareBaseVersion(data.softwareBase.adobe)
+    );
 
-  content = content.replace(
-    "{{libreOfficeCheck}}",
-    revisarSoftwareBase(data.softwareBase.libreOffice)
-  );
-  content = content.replace(
-    "{{libreOfficeVersion}}",
-    revisarSoftwareBaseVersion(data.softwareBase.libreOffice)
-  );
+    content = content.replace(
+      "{{ganttCheck}}",
+      revisarSoftwareBase(data.softwareBase.ganttProject)
+    );
+    content = content.replace(
+      "{{ganttVersion}}",
+      revisarSoftwareBaseVersion(data.softwareBase.ganttProject)
+    );
 
-  content = content.replace(
-    "{{winRARCheck}}",
-    revisarSoftwareBase(data.softwareBase.winRAR)
-  );
-  content = content.replace(
-    "{{winRARVersion}}",
-    revisarSoftwareBaseVersion(data.softwareBase.winRAR)
-  );
+    content = content.replace(
+      "{{libreOfficeCheck}}",
+      revisarSoftwareBase(data.softwareBase.libreOffice)
+    );
+    content = content.replace(
+      "{{libreOfficeVersion}}",
+      revisarSoftwareBaseVersion(data.softwareBase.libreOffice)
+    );
 
-  content = content.replace(
-    "{{chromeCheck}}",
-    revisarSoftwareBase(data.softwareBase.chrome)
-  );
-  content = content.replace(
-    "{{chromeVersion}}",
-    revisarSoftwareBaseVersion(data.softwareBase.chrome)
-  );
+    content = content.replace(
+      "{{winRARCheck}}",
+      revisarSoftwareBase(data.softwareBase.winRAR)
+    );
+    content = content.replace(
+      "{{winRARVersion}}",
+      revisarSoftwareBaseVersion(data.softwareBase.winRAR)
+    );
 
-  content = content.replace(
-    "{{vlcCheck}}",
-    revisarSoftwareBase(data.softwareBase.vlc)
-  );
-  content = content.replace(
-    "{{vlcVersion}}",
-    revisarSoftwareBaseVersion(data.softwareBase.vlc)
-  );
+    content = content.replace(
+      "{{chromeCheck}}",
+      revisarSoftwareBase(data.softwareBase.chrome)
+    );
+    content = content.replace(
+      "{{chromeVersion}}",
+      revisarSoftwareBaseVersion(data.softwareBase.chrome)
+    );
 
-  content = content.replace(
-    "{{sapCheck}}",
-    revisarSoftwareBase(data.softwareBase.sap)
-  );
-  content = content.replace(
-    "{{sapVersion}}",
-    revisarSoftwareBaseVersion(data.softwareBase.sap)
-  );
+    content = content.replace(
+      "{{vlcCheck}}",
+      revisarSoftwareBase(data.softwareBase.vlc)
+    );
+    content = content.replace(
+      "{{vlcVersion}}",
+      revisarSoftwareBaseVersion(data.softwareBase.vlc)
+    );
 
-  content = content.replace(
-    "{{autodeskCheck}}",
-    revisarSoftwareBase(data.softwareBase.autoDesk)
-  );
-  content = content.replace(
-    "{{autodeskVersion}}",
-    revisarSoftwareBaseVersion(data.softwareBase.autoDesk)
-  );
+    content = content.replace(
+      "{{sapCheck}}",
+      revisarSoftwareBase(data.softwareBase.sap)
+    );
+    content = content.replace(
+      "{{sapVersion}}",
+      revisarSoftwareBaseVersion(data.softwareBase.sap)
+    );
 
-  content = content.replace(
-    "{{tvCheck}}",
-    revisarSoftwareBase(data.softwareBase.teamViewer)
-  );
+    content = content.replace(
+      "{{autodeskCheck}}",
+      revisarSoftwareBase(data.softwareBase.autoDesk)
+    );
+    content = content.replace(
+      "{{autodeskVersion}}",
+      revisarSoftwareBaseVersion(data.softwareBase.autoDesk)
+    );
 
-  content = content.replace(
-    "{{tvVersion}}",
-    revisarSoftwareBaseVersion(data.softwareBase.teamViewer)
-  );
-  content = content.replace(
-    "{{inkCheck}}",
-    revisarSoftwareBase(data.softwareBase.inkscape)
-  );
-  content = content.replace(
-    "{{inkVersion}}",
-    revisarSoftwareBaseVersion(data.softwareBase.inkscape)
-  );
-  content = content.replace(
-    "{{firefoxCheck}}",
-    revisarSoftwareBase(data.softwareBase.firefox)
-  );
-  content = content.replace(
-    "{{firefoxVersion}}",
-    revisarSoftwareBaseVersion(data.softwareBase.firefox)
-  );
-  content = content.replace(
-    "{{teamsCheck}}",
-    revisarSoftwareBase(data.softwareBase.microsoftTeams)
-  );
-  content = content.replace(
-    "{{teamsVersion}}",
-    revisarSoftwareBaseVersion(data.softwareBase.microsoftTeams)
-  );
-  content = content.replace(
-    "{{bwCheck}}",
-    revisarSoftwareBase(data.softwareBase.bitWarden)
-  );
-  content = content.replace(
-    "{{bwVersion}}",
-    revisarSoftwareBaseVersion(data.softwareBase.bitWarden)
-  );
-  content = content.replace(
-    "{{aimpCheck}}",
-    revisarSoftwareBase(data.softwareBase.aimp)
-  );
-  content = content.replace(
-    "{{aimpVersion}}",
-    revisarSoftwareBaseVersion(data.softwareBase.aimp)
-  );
-  content = content.replace(
-    "{{drawCheck}}",
-    revisarSoftwareBase(data.softwareBase.drawio)
-  );
-  content = content.replace(
-    "{{drawVersion}}",
-    revisarSoftwareBaseVersion(data.softwareBase.drawio)
-  );
-  content = content.replace(
-    "{{anyCheck}}",
-    revisarSoftwareBase(data.softwareBase.anyDesk)
-  );
-  content = content.replace(
-    "{{anyVersion}}",
-    revisarSoftwareBaseVersion(data.softwareBase.anyDesk)
-  );
-  content = content.replace(
-    "{{ligCheck}}",
-    revisarSoftwareBase(data.softwareBase.lightShot)
-  );
-  content = content.replace(
-    "{{ligVersion}}",
-    revisarSoftwareBaseVersion(data.softwareBase.lightShot)
-  );
+    content = content.replace(
+      "{{tvCheck}}",
+      revisarSoftwareBase(data.softwareBase.teamViewer)
+    );
 
-  content = content.replace(
-    "{{softwareAdicional}}",
-    softwareAdicional(data.softwareAdicional)
-  );
+    content = content.replace(
+      "{{tvVersion}}",
+      revisarSoftwareBaseVersion(data.softwareBase.teamViewer)
+    );
+    content = content.replace(
+      "{{inkCheck}}",
+      revisarSoftwareBase(data.softwareBase.inkscape)
+    );
+    content = content.replace(
+      "{{inkVersion}}",
+      revisarSoftwareBaseVersion(data.softwareBase.inkscape)
+    );
+    content = content.replace(
+      "{{firefoxCheck}}",
+      revisarSoftwareBase(data.softwareBase.firefox)
+    );
+    content = content.replace(
+      "{{firefoxVersion}}",
+      revisarSoftwareBaseVersion(data.softwareBase.firefox)
+    );
+    content = content.replace(
+      "{{teamsCheck}}",
+      revisarSoftwareBase(data.softwareBase.microsoftTeams)
+    );
+    content = content.replace(
+      "{{teamsVersion}}",
+      revisarSoftwareBaseVersion(data.softwareBase.microsoftTeams)
+    );
+    content = content.replace(
+      "{{bwCheck}}",
+      revisarSoftwareBase(data.softwareBase.bitWarden)
+    );
+    content = content.replace(
+      "{{bwVersion}}",
+      revisarSoftwareBaseVersion(data.softwareBase.bitWarden)
+    );
+    content = content.replace(
+      "{{aimpCheck}}",
+      revisarSoftwareBase(data.softwareBase.aimp)
+    );
+    content = content.replace(
+      "{{aimpVersion}}",
+      revisarSoftwareBaseVersion(data.softwareBase.aimp)
+    );
+    content = content.replace(
+      "{{drawCheck}}",
+      revisarSoftwareBase(data.softwareBase.drawio)
+    );
+    content = content.replace(
+      "{{drawVersion}}",
+      revisarSoftwareBaseVersion(data.softwareBase.drawio)
+    );
+    content = content.replace(
+      "{{anyCheck}}",
+      revisarSoftwareBase(data.softwareBase.anyDesk)
+    );
+    content = content.replace(
+      "{{anyVersion}}",
+      revisarSoftwareBaseVersion(data.softwareBase.anyDesk)
+    );
+    content = content.replace(
+      "{{ligCheck}}",
+      revisarSoftwareBase(data.softwareBase.lightShot)
+    );
+    content = content.replace(
+      "{{ligVersion}}",
+      revisarSoftwareBaseVersion(data.softwareBase.lightShot)
+    );
+
+    content = content.replace(
+      "{{softwareAdicional}}",
+      softwareAdicional(data.softwareAdicional)
+    );
+  });
 }
 
 function revisarSoftwareBase(version) {

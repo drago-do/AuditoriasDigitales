@@ -4,19 +4,20 @@ import axios from "axios";
 import ItemDocumentoAuditoria from "../components/itemDocumentoAuditorias";
 import Pagination from "@mui/material/Pagination";
 
-const API_URL = process.env.API_URL + "document/F_TI_DT_013REV3";
+const API_URL = process.env.API_URL;
 
 export default function ConsultaAuditorias() {
   // const [registros, setRegistros] = useState(null);
 
   const [registros, setRegistros] = useState([]);
+  const [pinAuditor, setPinAuditor] = useState();
   const [pageNumber, setPageNumber] = useState(0);
   const resultsPerPage = 5;
   const pagesVisited = pageNumber * resultsPerPage;
 
   useEffect(() => {
     axios
-      .get(API_URL)
+      .get(API_URL + "document/F_TI_DT_013REV3")
       .then((res) => {
         setRegistros(res.data);
       })
@@ -45,18 +46,27 @@ export default function ConsultaAuditorias() {
         laudantium voluptate cumque alias labore rerum fuga? Quisquam non
         distinctio odio deleniti consequatur.
       </p>
+      <label htmlFor="pin">Introduce tu pin de auditor</label>
+      <input
+        type="number"
+        name="pin"
+        placeholder="Pin Auditor"
+        onChange={(evt) => setPinAuditor(evt.target.value)}
+      />
       <div id="contenido" style={{ width: "80%" }}>
         {registros && registros.length > 0 ? (
           registros
             .slice(pagesVisited, pagesVisited + resultsPerPage)
             .map((registro) => {
-              return (
-                <ItemDocumentoAuditoria
-                  key={registro._id}
-                  nombre={registro.datosUsuarioResponsable.nombre}
-                  idDocumento={registro._id}
-                />
-              );
+              if (pinAuditor == registro.pin) {
+                return (
+                  <ItemDocumentoAuditoria
+                    key={registro._id}
+                    nombre={registro.datosUsuarioResponsable.nombre}
+                    idDocumento={registro._id}
+                  />
+                );
+              }
             })
         ) : (
           <p>No hay registros</p>

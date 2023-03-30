@@ -7,10 +7,13 @@ import styles from "./../css/Root.module.css";
 
 const API_URL = process.env.API_URL;
 
-export default function itemDocumentoAuditoria({ nombre, idDocumento }) {
+export default function itemDocumentoAuditoria({
+  nombre,
+  idDocumento,
+  numeroResponsiva,
+}) {
   //consultar si existen imagenes para este documento
   const [imagenes, setImagenes] = useState(false);
-
   useEffect(() => {
     axios
       .get(API_URL + "document/F_TI_DT_013REV3/image/exists/" + idDocumento)
@@ -43,6 +46,24 @@ export default function itemDocumentoAuditoria({ nombre, idDocumento }) {
       });
   };
 
+  const handleEliminarRegistro = (idDocumento) => {
+    axios
+      .delete(API_URL + "document/F_TI_DT_013REV3/" + idDocumento)
+      .then((res) => {
+        //Si la respuesta es true, entonces hay imagenes
+        if (res.data) {
+          alert("Se eliminó el registro correctamente");
+          //Reload page before 2 seconds
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        }
+      })
+      .catch((err) => {
+        alert("Error eliminando el registro");
+      });
+  };
+
   return (
     <div className={styles.containerItem} style={{ margin: "20px" }}>
       <img
@@ -51,6 +72,7 @@ export default function itemDocumentoAuditoria({ nombre, idDocumento }) {
       />
       <div className={styles.containerItemInfo}>
         <h3>{nombre}</h3>
+        <p>{numeroResponsiva}</p>
         <p>{idDocumento}</p>
       </div>
       <div style={{ display: "flex" }}>
@@ -73,12 +95,20 @@ export default function itemDocumentoAuditoria({ nombre, idDocumento }) {
           <ImageUpload idDocumento={idDocumento} />
         )}
       </div>
-      <a
-        className={styles.link}
-        href={API_URL + "document/F_TI_DT_013REV3_PDF/" + idDocumento}
-      >
-        Ver PDF generado
-      </a>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <a
+          className={styles.link}
+          href={API_URL + "document/F_TI_DT_013REV3_PDF/" + idDocumento}
+        >
+          Ver PDF generado
+        </a>
+        <button
+          className={styles.deleteLink}
+          onClick={() => handleEliminarRegistro(idDocumento)}
+        >
+          Eliminar Registro
+        </button>
+      </div>
     </div>
   );
 }
