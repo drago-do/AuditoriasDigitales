@@ -84,6 +84,7 @@ var content = `<!doctype html>
       <span>Ref. P-TI-DT-010</span>
     </div>
     <p style="text-align: end; font-size: 12px;">
+    <span>Numero de responsiva: {{responsiva}}</span>
     <span>Nombre de auditor: {{nombreAuditor}}</span>
     Fecha: {{fecha}}</p>
     <br>
@@ -590,6 +591,8 @@ function insertarDatosDocumento(data) {
       "{{fecha}}",
       data.dia + "/" + data.mes + "/" + data.anio
     );
+    //!Numero de responsiva
+    content = content.replace("{{responsiva}}", data.numeroResponsiva);
     //!Datos del usuario responsable
     content = content.replace(
       "{{nombre}}",

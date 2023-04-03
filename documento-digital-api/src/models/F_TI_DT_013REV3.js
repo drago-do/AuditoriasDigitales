@@ -5,6 +5,10 @@ const F_TI_DT_013REV3Schema = mongoose.Schema({
     type: Number,
     required: true,
   },
+  numeroResponsiva: {
+    type: String,
+    required: true,
+  },
   dia: {
     type: String,
     required: true,

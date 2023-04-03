@@ -3,15 +3,37 @@ const router = Router();
 const multer = require("multer");
 //Requerir el Schema para CRUD DOCUMENT F_TI_DT_013REV3
 const documentF_TI_DT_013REV3Schema = require("../models/F_TI_DT_013REV3");
+const Responsiva = require("./../models/responsivaST");
 const imageModel = require("./../models/imageSchema");
 
 //Create DOCUMENT
 router.post("/", (req, res) => {
-  const dataDocument = documentF_TI_DT_013REV3Schema(req.body);
-  dataDocument
-    .save()
-    .then((data) => res.json(data))
-    .catch((error) => res.json({ message: error }));
+  // console.log(req.body);
+  let datosDocumento = req.body;
+  //Obtener serviceTag de datosDocumento.datosEquipo.serviceTag
+  let serviceTag = datosDocumento.datosEquipo.serviceTag;
+  console.log(serviceTag);
+  //Obtener responsiva.numeroResponsiva donde responsiva.serviceTag sea igual a serviceTag
+  Responsiva.findOne({ serviceTag: serviceTag })
+    .then((data) => {
+      let numeroResponsiva;
+      if (data === null) {
+        numeroResponsiva = "No Asociado";
+      } else {
+        //Obtener numeroResponsiva de data.numeroResponsiva
+        numeroResponsiva = data.numeroResponsiva;
+      }
+      //Agregar numeroResponsiva a datosDocumento.numeroResponsiva
+      datosDocumento.numeroResponsiva = numeroResponsiva;
+      const dataDocument = documentF_TI_DT_013REV3Schema(datosDocumento);
+      //Agregar datosDocumento a dataDocument
+      dataDocument
+        .save()
+        .then((data) => res.json(data))
+        .catch((error) => res.json({ message: error }));
+    })
+    .catch((error) => console.log(error));
+  //Agregar datosDocumento a dataDocument
 });
 
 //Get all DOCUMENT's

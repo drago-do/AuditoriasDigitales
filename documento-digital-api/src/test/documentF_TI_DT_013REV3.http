@@ -1,5 +1,5 @@
 ###
-POST http://localhost:3001/document/F_TI_DT_013REV3 HTTP/1.1
+POST http://localhost:3002/document/F_TI_DT_013REV3 HTTP/1.1
 Content-Type: application/json
 
 {
@@ -8,6 +8,9 @@ Content-Type: application/json
   "anio" : "2023",
   "mes" : "03",
   "dia" : "07",
+  "numeroResponsiva":"",
+  "pin": 2123,
+  "idAuditor": "6423f52d9459b3541c08d726",
   "datosUsuarioResponsable": {
     "nombre": "Drago Dominguez Ruiz",
     "puesto": "Dev",
@@ -18,7 +21,7 @@ Content-Type: application/json
     "tipo": "AIO",
     "marca": "Dell",
     "modelo": "OpitPlex",
-    "serviceTag": "SD5H2FX",
+    "serviceTag": "6PYS8C3",
     "macWIFI": "22:33:44:55:66",
     "macLAN": "22:33:44:55:66",
     "nombreEquipo": "PRACTICANTE",

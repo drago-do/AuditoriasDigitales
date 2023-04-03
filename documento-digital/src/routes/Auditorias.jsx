@@ -44,6 +44,7 @@ export default function Auditorias() {
           dia: dataDia,
           mes: dataMes,
           anio: dataAnio,
+          numeroResponsiva: "",
           pin: data.get("pin"),
           idAuditor: idAuditor,
           datosUsuarioResponsable: {
