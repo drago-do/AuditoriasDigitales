@@ -1,3 +1,4 @@
+<!doctype html>
 <html>
 
 <head>
@@ -15,9 +16,17 @@
     }
 
     h1 {
-      font-size: 12px;
+      font-size: 10px;
       text-align: center;
       font-weight: bold;
+      background-color: #b4d479;
+      color: #000;
+    }
+
+    .tableTitle {
+      font-size: 10px;
+      font-weight: bold;
+      text-align: center;
       background-color: #b4d479;
       color: #000;
     }
@@ -41,7 +50,6 @@
     }
 
     .pLogo {
-      width: 10px;
       height: 10px;
     }
 
@@ -53,6 +61,10 @@
 
     .inLine {
       display: inline;
+    }
+
+    .sinBorde {
+      border: 0px none;
     }
   </style>
 </head>
@@ -69,7 +81,11 @@
       <img class="logo" src="http://localhost:3002/grupak_logo.png" alt="imagen logo" style="width: 100px;" />
       <span>Ref. P-TI-DT-010</span>
     </div>
-    <p style="text-align: end; font-size: 12px;">Fecha: {{fecha}}</p>
+    <p style="text-align: end; font-size: 12px;">
+      <span>Numero de responsiva: {{responsiva}}</span>
+      <span>Nombre de auditor: {{nombreAuditor}}</span>
+      Fecha: {{fecha}}
+    </p>
     <br>
     <br>
     <h1>Datos del usuario responsable del equipo</h1>
@@ -96,8 +112,6 @@
       </tbody>
     </table>
     <br>
-
-
     <h1>Datos del equipo</h1>
     <!-- tabla -->
     <table>
@@ -148,7 +162,7 @@
           <td width="140">Sistema operativo:</td>
           <td colspan="2" class="respuesta">{{SO}}</td>
           <td width="140">Versión SO:</td>
-          <td colspan="2" class="respuesta">{{ram}}</td>
+          <td colspan="2" class="respuesta">{{versionSO}}</td>
         </tr>
         <tr>
           <td>Arquitectura:</td>
@@ -200,7 +214,7 @@
           <td class="respuesta">{{fondoPantalla}}</td>
         </tr>
         <tr>
-          <td class="respuesta">Menú Grupak en navegadores (Chrome, Firefox y Edge)</td>
+          <td class="respuesta">Menú Grupak en navegadores (Chrome y Edge)</td>
           <td class="respuesta">{{menu}}</td>
         </tr>
         <tr>
@@ -251,12 +265,20 @@
           <td class="respuesta">{{ie}}</td>
         </tr>
         <tr>
+          <td class="respuesta">Desinstalar Firefox Mozilla del equipo de cómputo</td>
+          <td class="respuesta">Si</td>
+        </tr>
+        <tr>
           <td class="respuesta">Acceso a internet restringido</td>
           <td class="respuesta">{{internetRestringido}}</td>
         </tr>
         <tr>
           <td class="respuesta">"Recordar contraseña" desactivado en navegadores</td>
-          <td class="respuesta">{{recordarContra}}</td>
+          <td class="respuesta">Si</td>
+        </tr>
+        <tr>
+          <td class="respuesta">Uso de gestor de contraseñas</td>
+          <td class="respuesta">Si</td>
         </tr>
         <tr>
           <td class="respuesta">Doble autenticación de Correo electrónico</td>
@@ -267,14 +289,36 @@
     <br>
     <div>
       <div>
-        <h1>LISTA DE SOFTWARE BASE</h1>
-        <!-- tabla -->
+
         <table>
           <tbody>
             <tr>
+              <td class="sinBorde tableTitle">
+                LISTA SOFTWARE BASE
+              </td>
+              <td>
+                LISTA SOFTWARE ADICIONAL
+              </td>
+          </tbody>
+        </table>
+        <!-- tabla -->
+        <table>
+          <tbody>
+            <thead>
+              <tr>
+                <th>Logo</th>
+                <th>Nombre</th>
+                <th>Instalado</th>
+                <th>Versión</th>
+                <th>SO</th>
+              </tr>
+            </thead>
+            <tr>
+              <td class="sinBorde">
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/b.jpg" alt="bitDefender" />
+              </td>
               <td class="containerPLogo">
                 <p class="inLine">Bit defender</p>
-                <img class="pLogo inLine" src="http://localhost:3002/programLogo/b.jpg" alt="bitDefender" />
               </td>
               <td>
                 {{bitDefenderCheck}}
@@ -282,11 +326,16 @@
               <td>
                 {{bitDefenderVersion}}
               </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/winMac.jpg" alt="SO">
+              </td>
             </tr>
             <tr>
+              <td class="sinBorde">
+                <img class="pLogo inline" src="http://localhost:3002/programLogo/g.jpg" alt="Gimp" />
+              </td>
               <td class="containerPLogo">
                 <p class="inline">Gimp
-                  <img class="pLogo inline" src="http://localhost:3002/programLogo/g.jpg" alt="Gimp" />
                 </p>
               </td>
               <td>
@@ -295,11 +344,16 @@
               <td>
                 {{gimpVersion}}
               </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/win.jpg" alt="SO">
+              </td>
             </tr>
             <tr>
+              <td class="sinBorde">
+                <img class="pLogo inline" src="http://localhost:3002/programLogo/a.jpg" alt="Adobe Acrobat" />
+              </td>
               <td class="containerPLogo">
                 <p class="inline">Adobe Acrobat
-                  <img class="pLogo inline" src="http://localhost:3002/programLogo/a.jpg" alt="Adobe Acrobat" />
                 </p>
               </td>
               <td>
@@ -308,11 +362,16 @@
               <td>
                 {{adobeVersion}}
               </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/winMac.jpg" alt="SO">
+              </td>
             </tr>
             <tr>
+              <td class="sinBorde">
+                <img class="pLogo inline" src="http://localhost:3002/programLogo/g.1.jpg" alt="Adobe Acrobat" />
+              </td>
               <td class="containerPLogo">
                 <p class="inline">GanttProject
-                  <img class="pLogo inline" src="http://localhost:3002/programLogo/g.1.jpg" alt="GanttProject" />
                 </p>
               </td>
               <td>
@@ -321,11 +380,16 @@
               <td>
                 {{ganttVersion}}
               </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/winMac.jpg" alt="SO">
+              </td>
             </tr>
             <tr>
+              <td class="sinBorde">
+                <img class="pLogo inline" src="http://localhost:3002/programLogo/lo.jpg" alt="Adobe Acrobat" />
+              </td>
               <td class="containerPLogo">
                 <p class="inline">LibreOffice
-                  <img class="pLogo inline" src="http://localhost:3002/programLogo/lo.jpg" alt="LibreOffice" />
                 </p>
               </td>
               <td>
@@ -333,6 +397,9 @@
               </td>
               <td>
                 {{libreOfficeVersion}}
+              </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/win.jpg" alt="SO">
               </td>
             </tr>
             <tr>
@@ -347,6 +414,9 @@
               <td>
                 {{winRARVersion}}
               </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/win.jpg" alt="SO">
+              </td>
             </tr>
             <tr>
               <td class="containerPLogo">
@@ -359,6 +429,9 @@
               </td>
               <td>
                 {{chromeVersion}}
+              </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/winMac.jpg" alt="SO">
               </td>
             </tr>
             <tr>
@@ -373,11 +446,14 @@
               <td>
                 {{vlcVersion}}
               </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/win.jpg" alt="SO">
+              </td>
             </tr>
             <tr>
               <td class="containerPLogo">
                 <p class="inline">SAP
-                  <img class="pLogo inline" src="http://localhost:3002/programLogo/sap.jpg" alt="SAP" />
+                  <img class="pLogo inline" src="http://localhost:3002/programLogo/sap.png" alt="SAP" />
                 </p>
               </td>
               <td>
@@ -385,6 +461,9 @@
               </td>
               <td>
                 {{sapVersion}}
+              </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/winMac.jpg" alt="SO">
               </td>
             </tr>
             <tr>
@@ -399,6 +478,9 @@
               <td>
                 {{autodeskVersion}}
               </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/winMac.jpg" alt="SO">
+              </td>
             </tr>
             <tr>
               <td class="containerPLogo">
@@ -411,6 +493,9 @@
               </td>
               <td>
                 {{tvVersion}}
+              </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/winMac.jpg" alt="SO">
               </td>
             </tr>
             <tr>
@@ -425,18 +510,8 @@
               <td>
                 {{inkVersion}}
               </td>
-            </tr>
-            <tr>
-              <td class="containerPLogo">
-                <p class="inline">Firefox
-                  <img class="pLogo inline" src="http://localhost:3002/programLogo/fir.jpg" alt="Firefox" />
-                </p>
-              </td>
               <td>
-                {{firefoxCheck}}
-              </td>
-              <td>
-                {{firefoxVersion}}
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/win.jpg" alt="SO">
               </td>
             </tr>
             <tr>
@@ -451,8 +526,10 @@
               <td>
                 {{teamsVersion}}
               </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/winMac.jpg" alt="SO">
+              </td>
             </tr>
-
             <tr>
               <td class="containerPLogo">
                 <p class="inline">Bit Warden
@@ -465,8 +542,10 @@
               <td>
                 {{bwVersion}}
               </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/winMac.jpg" alt="SO">
+              </td>
             </tr>
-
             <tr>
               <td class="containerPLogo">
                 <p class="inline">AIMP
@@ -479,8 +558,10 @@
               <td>
                 {{aimpVersion}}
               </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/win.jpg" alt="SO">
+              </td>
             </tr>
-
             <tr>
               <td class="containerPLogo">
                 <p class="inline">Draw.io <img class="pLogo inline" src="http://localhost:3002/programLogo/draw.jpg"
@@ -493,8 +574,10 @@
               <td>
                 {{drawVersion}}
               </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/win.jpg" alt="SO">
+              </td>
             </tr>
-
             <tr>
               <td class="containerPLogo">
                 <p class="inline">AnyDesk <img class="pLogo inline" src="http://localhost:3002/programLogo/any.jpg"
@@ -507,8 +590,10 @@
               <td>
                 {{anyVersion}}
               </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/win.jpg" alt="SO">
+              </td>
             </tr>
-
             <tr>
               <td class="containerPLogo">
                 <p class="inline">LightShot <img class="pLogo inline" src="http://localhost:3002/programLogo/lig.jpg"
@@ -521,25 +606,21 @@
               <td>
                 {{ligVersion}}
               </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/winMac.jpg" alt="SO">
+              </td>
             </tr>
-
           </tbody>
         </table>
       </div>
       <br>
       <div>
         <h1>LISTA DE SOFTWARE ADICIONAL</h1>
-        <table>
-          <td>Visual</td>
-          <td>2.35</td>
-        </table>
+        {{softwareAdicional}}
       </div>
     </div>
-
   </div>
   <img src="http://localhost:3002/footer.png" alt="Pie de pagina" style="max-width: 612px;">
-
-
 </body>
 
 </html>

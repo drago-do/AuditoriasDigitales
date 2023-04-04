@@ -22,7 +22,9 @@ const options = {
 };
 
 var content = `<!doctype html>
+<!doctype html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>PDF Result Template</title>
@@ -32,9 +34,11 @@ var content = `<!doctype html>
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
     }
+
     span {
       font-size: 8px;
     }
+
     h1 {
       font-size: 10px;
       text-align: center;
@@ -42,10 +46,12 @@ var content = `<!doctype html>
       background-color: #b4d479;
       color: #000;
     }
+
     table {
       border-collapse: collapse;
       width: 100%;
     }
+
     td {
       font-size: 8px;
       border: 2px solid #ddd;
@@ -53,24 +59,32 @@ var content = `<!doctype html>
       text-align: end;
       font-weight: bold;
     }
+
     td.respuesta {
       text-align: start;
       font-weight: 100;
     }
+
     .pLogo {
-      width: 10px;
       height: 10px;
     }
+
     .containerPLogo {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
+
     .inLine {
       display: inline;
     }
+
+    .sinBorde {
+      border: 0px none;
+    }
   </style>
 </head>
+
 <body>
   <div style="margin: 40px;">
     <div id="pageFooter" style="border-top: 1px solid #ddd; padding-top: 5px;">
@@ -84,9 +98,10 @@ var content = `<!doctype html>
       <span>Ref. P-TI-DT-010</span>
     </div>
     <p style="text-align: end; font-size: 12px;">
-    <span>Numero de responsiva: {{responsiva}}</span>
-    <span>Nombre de auditor: {{nombreAuditor}}</span>
-    Fecha: {{fecha}}</p>
+      <span>Numero de responsiva: {{responsiva}}</span>
+      <span>Nombre de auditor: {{nombreAuditor}}</span>
+      Fecha: {{fecha}}
+    </p>
     <br>
     <br>
     <h1>Datos del usuario responsable del equipo</h1>
@@ -215,7 +230,7 @@ var content = `<!doctype html>
           <td class="respuesta">{{fondoPantalla}}</td>
         </tr>
         <tr>
-          <td class="respuesta">Menú Grupak en navegadores (Chrome, Firefox y Edge)</td>
+          <td class="respuesta">Menú Grupak en navegadores (Chrome y Edge)</td>
           <td class="respuesta">{{menu}}</td>
         </tr>
         <tr>
@@ -266,16 +281,20 @@ var content = `<!doctype html>
           <td class="respuesta">{{ie}}</td>
         </tr>
         <tr>
+          <td class="respuesta">Desinstalar Firefox Mozilla del equipo de cómputo</td>
+          <td class="respuesta">Si</td>
+        </tr>
+        <tr>
           <td class="respuesta">Acceso a internet restringido</td>
           <td class="respuesta">{{internetRestringido}}</td>
         </tr>
         <tr>
           <td class="respuesta">"Recordar contraseña" desactivado en navegadores</td>
-          <td class="respuesta">{{recordarContra}}</td>
+          <td class="respuesta">Si</td>
         </tr>
-<tr>
+        <tr>
           <td class="respuesta">Uso de gestor de contraseñas</td>
-          <td class="respuesta">{{gestorContra}}</td>
+          <td class="respuesta">Si</td>
         </tr>
         <tr>
           <td class="respuesta">Doble autenticación de Correo electrónico</td>
@@ -291,9 +310,11 @@ var content = `<!doctype html>
         <table>
           <tbody>
             <tr>
+              <td class="sinBorde">
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/b.jpg" alt="bitDefender" />
+              </td>
               <td class="containerPLogo">
                 <p class="inLine">Bit defender</p>
-                <img class="pLogo inLine" src="http://localhost:3002/programLogo/b.jpg" alt="bitDefender" />
               </td>
               <td>
                 {{bitDefenderCheck}}
@@ -301,11 +322,16 @@ var content = `<!doctype html>
               <td>
                 {{bitDefenderVersion}}
               </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/winMac.jpg" alt="SO">
+              </td>
             </tr>
             <tr>
+              <td class="sinBorde">
+                <img class="pLogo inline" src="http://localhost:3002/programLogo/g.jpg" alt="Gimp" />
+              </td>
               <td class="containerPLogo">
                 <p class="inline">Gimp
-                  <img class="pLogo inline" src="http://localhost:3002/programLogo/g.jpg" alt="Gimp" />
                 </p>
               </td>
               <td>
@@ -314,11 +340,16 @@ var content = `<!doctype html>
               <td>
                 {{gimpVersion}}
               </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/win.jpg" alt="SO">
+              </td>
             </tr>
             <tr>
+              <td class="sinBorde">
+                <img class="pLogo inline" src="http://localhost:3002/programLogo/a.jpg" alt="Adobe Acrobat" />
+              </td>
               <td class="containerPLogo">
                 <p class="inline">Adobe Acrobat
-                  <img class="pLogo inline" src="http://localhost:3002/programLogo/a.jpg" alt="Adobe Acrobat" />
                 </p>
               </td>
               <td>
@@ -327,11 +358,16 @@ var content = `<!doctype html>
               <td>
                 {{adobeVersion}}
               </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/winMac.jpg" alt="SO">
+              </td>
             </tr>
             <tr>
+              <td class="sinBorde">
+                <img class="pLogo inline" src="http://localhost:3002/programLogo/g.1.jpg" alt="Adobe Acrobat" />
+              </td>
               <td class="containerPLogo">
                 <p class="inline">GanttProject
-                  <img class="pLogo inline" src="http://localhost:3002/programLogo/g.1.jpg" alt="GanttProject" />
                 </p>
               </td>
               <td>
@@ -340,11 +376,16 @@ var content = `<!doctype html>
               <td>
                 {{ganttVersion}}
               </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/winMac.jpg" alt="SO">
+              </td>
             </tr>
             <tr>
+              <td class="sinBorde">
+                <img class="pLogo inline" src="http://localhost:3002/programLogo/lo.jpg" alt="Adobe Acrobat" />
+              </td>
               <td class="containerPLogo">
                 <p class="inline">LibreOffice
-                  <img class="pLogo inline" src="http://localhost:3002/programLogo/lo.jpg" alt="LibreOffice" />
                 </p>
               </td>
               <td>
@@ -352,6 +393,9 @@ var content = `<!doctype html>
               </td>
               <td>
                 {{libreOfficeVersion}}
+              </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/win.jpg" alt="SO">
               </td>
             </tr>
             <tr>
@@ -366,6 +410,9 @@ var content = `<!doctype html>
               <td>
                 {{winRARVersion}}
               </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/win.jpg" alt="SO">
+              </td>
             </tr>
             <tr>
               <td class="containerPLogo">
@@ -378,6 +425,9 @@ var content = `<!doctype html>
               </td>
               <td>
                 {{chromeVersion}}
+              </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/winMac.jpg" alt="SO">
               </td>
             </tr>
             <tr>
@@ -392,11 +442,14 @@ var content = `<!doctype html>
               <td>
                 {{vlcVersion}}
               </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/win.jpg" alt="SO">
+              </td>
             </tr>
             <tr>
               <td class="containerPLogo">
                 <p class="inline">SAP
-                  <img class="pLogo inline" src="http://localhost:3002/programLogo/sap.jpg" alt="SAP" />
+                  <img class="pLogo inline" src="http://localhost:3002/programLogo/sap.png" alt="SAP" />
                 </p>
               </td>
               <td>
@@ -404,6 +457,9 @@ var content = `<!doctype html>
               </td>
               <td>
                 {{sapVersion}}
+              </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/winMac.jpg" alt="SO">
               </td>
             </tr>
             <tr>
@@ -418,6 +474,9 @@ var content = `<!doctype html>
               <td>
                 {{autodeskVersion}}
               </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/winMac.jpg" alt="SO">
+              </td>
             </tr>
             <tr>
               <td class="containerPLogo">
@@ -430,6 +489,9 @@ var content = `<!doctype html>
               </td>
               <td>
                 {{tvVersion}}
+              </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/winMac.jpg" alt="SO">
               </td>
             </tr>
             <tr>
@@ -444,18 +506,8 @@ var content = `<!doctype html>
               <td>
                 {{inkVersion}}
               </td>
-            </tr>
-            <tr>
-              <td class="containerPLogo">
-                <p class="inline">Firefox
-                  <img class="pLogo inline" src="http://localhost:3002/programLogo/fir.jpg" alt="Firefox" />
-                </p>
-              </td>
               <td>
-                {{firefoxCheck}}
-              </td>
-              <td>
-                {{firefoxVersion}}
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/win.jpg" alt="SO">
               </td>
             </tr>
             <tr>
@@ -470,6 +522,9 @@ var content = `<!doctype html>
               <td>
                 {{teamsVersion}}
               </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/winMac.jpg" alt="SO">
+              </td>
             </tr>
             <tr>
               <td class="containerPLogo">
@@ -482,6 +537,9 @@ var content = `<!doctype html>
               </td>
               <td>
                 {{bwVersion}}
+              </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/winMac.jpg" alt="SO">
               </td>
             </tr>
             <tr>
@@ -496,6 +554,9 @@ var content = `<!doctype html>
               <td>
                 {{aimpVersion}}
               </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/win.jpg" alt="SO">
+              </td>
             </tr>
             <tr>
               <td class="containerPLogo">
@@ -508,6 +569,9 @@ var content = `<!doctype html>
               </td>
               <td>
                 {{drawVersion}}
+              </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/win.jpg" alt="SO">
               </td>
             </tr>
             <tr>
@@ -522,6 +586,9 @@ var content = `<!doctype html>
               <td>
                 {{anyVersion}}
               </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/win.jpg" alt="SO">
+              </td>
             </tr>
             <tr>
               <td class="containerPLogo">
@@ -534,6 +601,9 @@ var content = `<!doctype html>
               </td>
               <td>
                 {{ligVersion}}
+              </td>
+              <td>
+                <img class="pLogo inLine" src="http://localhost:3002/programLogo/winMac.jpg" alt="SO">
               </td>
             </tr>
           </tbody>
@@ -548,6 +618,7 @@ var content = `<!doctype html>
   </div>
   <img src="http://localhost:3002/footer.png" alt="Pie de pagina" style="max-width: 612px;">
 </body>
+
 </html>
 `;
 
@@ -901,8 +972,9 @@ function revisarSoftwareBaseVersion(version) {
 }
 
 function softwareAdicional(arrayDeSoftware) {
-  let contenido = "<table>";
-  let sinDatos = "<td></td><td></td></table>";
+  let contenido =
+    "<table><td><img class='pLogo inLine' src='http://localhost:3002/programLogo/fir.jpg' />Firefox <b>No instalado</b></td><td>Ejecutable Online</td>";
+  let sinDatos = "</table>";
 
   //Si el array de software esta vació, añadir
   if (arrayDeSoftware.length == 0) {
