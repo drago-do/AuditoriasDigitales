@@ -42,8 +42,13 @@ export default function ConsultaAuditorias() {
     const { registros, pageNumber, resultsPerPage, pinAuditor } =
       consultaAuditoria;
     const pagesVisited = pageNumber * resultsPerPage;
+
     const paginatedRecords = registros
-      .filter((registro) => registro.pin === pinAuditor)
+      .filter((registro) => {
+        if (parseInt(registro.pin) === parseInt(pinAuditor)) {
+          return registro;
+        }
+      })
       .slice(pagesVisited, pagesVisited + resultsPerPage);
     return paginatedRecords;
   };
@@ -72,7 +77,8 @@ export default function ConsultaAuditorias() {
         onChange={handlePinAuditorChange}
       />
       <div id="contenido" style={{ width: "80%" }}>
-        {consultaAuditoria.registros.length > 0 ? (
+        {consultaAuditoria.registros.length > 0 &&
+        getPaginatedRecords().length > 0 ? (
           getPaginatedRecords().map((registro) => (
             <ItemDocumentoAuditoria
               key={registro._id}
@@ -81,7 +87,7 @@ export default function ConsultaAuditorias() {
             />
           ))
         ) : (
-          <h1>No hay registros</h1>
+          <h1>Introduce tu pin para ver los registros.</h1>
         )}
       </div>
       <div id="paginas">
