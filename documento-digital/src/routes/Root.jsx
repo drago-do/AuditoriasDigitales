@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./../css/Root.module.css";
 import ItemDocumento from "../components/itemDocumento";
 import LoaderEnviando from "../components/loaderEnviando";
-
+import { Link } from "react-router-dom";
 export default function Root() {
   return (
     <div className="container">
@@ -11,14 +11,9 @@ export default function Root() {
           <h1>Documentos digitales</h1>
         </div>
         <div className="col-2">
-          <button
-            className="btn btn-secondary"
-            onClick={() => {
-              window.location.href = "/login";
-            }}
-          >
+          <Link className="btn btn-secondary" to={"/login"}>
             Administrar
-          </button>
+          </Link>
         </div>
       </div>
       <p>Este es un ejemplo de una aplicación de documentos digitales.</p>
