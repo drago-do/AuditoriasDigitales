@@ -7,7 +7,7 @@ export default defineConfig({
   //Configurar variable de entorno
   define: {
     "process.env": {
-      API_URL: "http://localhost:3002/",
+      API_URL: "http://192.168.20.227:3002/",
     },
   },
 });
